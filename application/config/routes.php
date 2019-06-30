@@ -1,0 +1,69 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+$route['default_controller'] = 'Locacao_Controller/listar';
+$route['404_override'] = '';
+$route['translate_uri_dashes'] = FALSE;
+
+
+// Login
+$route['login'] = 'Login_Controller/login';
+$route['sair'] = 'Login_Controller/sair';
+$route['login/entrar'] = 'Login_Controller/entrar';
+
+// Usuários
+$route['usuarios/novo'] = 'Usuario_Controller/novo';
+$route['usuarios/listar'] = 'Usuario_Controller/listar';
+$route['usuarios/cadastrar'] = 'Usuario_Controller/cadastrar';
+$route['usuarios/atualizar'] = 'Usuario_Controller/atualizar';
+$route['usuarios/editar/(:num)'] = 'Usuario_Controller/editar/$1';
+$route['usuarios/inativar/(:num)'] = 'Usuario_Controller/inativar/$1';
+$route['usuarios/ativar/(:num)'] = 'Usuario_Controller/ativar/$1';
+
+// Painel
+$route['painel'] = 'Painel_Controller/inicial';
+
+// Corredores
+$route['corredores/novo'] = 'Corredor_Controller/novo';
+$route['corredores/listar'] = 'Corredor_Controller/listar';
+$route['corredores/cadastrar'] = 'Corredor_Controller/cadastrar';
+$route['corredores/editar/(:num)'] = 'Corredor_Controller/editar/$1';
+$route['corredores/atualizar'] = 'Corredor_Controller/atualizar';
+$route['corredores/inativar/(:num)'] = 'Corredor_Controller/inativar/$1';
+$route['corredores/ativar/(:num)'] = 'Corredor_Controller/ativar/$1';
+
+// Livros
+$route['livros/novo'] = 'Livro_Controller/novo';
+$route['livros/listar'] = 'Livro_Controller/listar';
+$route['livros/cadastrar'] = 'Livro_Controller/cadastrar';
+
+// Exemplares
+$route['exemplares/(:num)/listar'] = 'Exemplar_Controller/listar/$1';
+$route['exemplares/(:num)/cadastrar'] = 'Exemplar_Controller/cadastrar/$1';
+$route['exemplares/(:num)/status/(:num)/(:any)'] = 'Exemplar_Controller/alterar_status/$1/$2/$3';
+
+// Pessoas
+$route['pessoas/novo'] = 'Pessoa_Controller/novo';
+$route['pessoas/cadastrar'] = 'Pessoa_Controller/cadastrar';
+$route['pessoas/listar'] = 'Pessoa_Controller/listar';
+$route['pessoas/editar/(:num)'] = 'Pessoa_Controller/editar/$1';
+$route['pessoas/atualizar'] = 'Pessoa_Controller/atualizar';
+$route['pessoas/ativar/(:num)'] = 'Pessoa_Controller/ativar/$1';
+$route['pessoas/inativar/(:num)'] = 'Pessoa_Controller/inativar/$1';
+
+// Configurações
+$route['configuracao/locacao'] = 'Configuracao_Controller/atualizar_configuracao_locacao';
+
+// Locação
+$route['locacoes/nova'] = 'Locacao_Controller/nova';
+$route['locacoes/locar'] = 'Locacao_Controller/locar';
+$route['locacoes/listar'] = 'Locacao_Controller/listar';
+$route['locacoes/encerrar/(:num)'] = 'Locacao_Controller/encerrar/$1';
+
+
+/* ------ API ------ */
+
+// Pessoa
+$route['api/pessoas/(:any)'] = 'Pessoa_API_Controller/index_get/$1';
+$route['api/locacoes/(:num)'] = 'Locacao_API_Controller/index_get/$1';
+$route['api/reservas'] = 'Reserva_API_Controller/index_get/';

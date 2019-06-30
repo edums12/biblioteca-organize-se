@@ -1,0 +1,78 @@
+/* Cores */
+.rotate180{ transform: rotate(180deg) }
+
+/* Navbar */
+.navbar-nav.bottom{
+    bottom: 0;
+    position: absolute;
+}
+
+
+/* Alert */
+.container-alert{
+    display: flex;
+    justify-content: center;
+}
+
+.alert{
+    position: fixed; 
+    bottom: 3rem;
+    margin: 0 auto;
+}
+
+.alert.hide{
+    position: fixed; 
+    bottom: -4rem;
+    margin: 0 auto;
+}
+
+
+a.a-without-href{
+    cursor: pointer;
+}
+
+input.invalid{
+    border: 1px solid #f5365c !important;
+}
+
+.form-group.form-group-icon .input-group-text{
+    position: absolute;
+    border: none;
+    padding: 1rem .9rem;
+    background: transparent;
+}
+
+.form-group.form-group-icon input.form-control{
+    padding-left: 2.5rem;
+}
+
+.form-group.form-group-text .input-group-text{
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: .7rem .9rem;
+    background: rgba(220, 220, 220, .3);
+}
+
+.form-group.form-group-icon input.form-control{
+    padding-left: 2.5rem;
+}
+
+
+.list-scroll{
+    min-height: 21em;
+    max-height: 21em;
+    overflow-y: scroll;
+    padding-right: 1rem;
+}
+
+.list-scroll a.active{
+    background: rgba(5, 255, 146, 0.404) !important;
+    border: 1px solid rgba(5, 255, 146, 1) !important;
+    color: #333;
+}
+
+.list-scroll a.active i{
+    float: right;
+    padding: .2rem;
+    border-radius: 100%;
+}
