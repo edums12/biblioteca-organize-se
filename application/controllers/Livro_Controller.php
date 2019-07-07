@@ -65,7 +65,19 @@ class Livro_Controller extends CI_Controller
 
     public function listar()
     {
-        $data['livros'] = $this->Livro->get();
+        $paginacao = Base::configuracao_paginacao('livros/listar', 3);
+
+        $result = $this->Livro->get($paginacao);
+
+        $data['livros'] = $result['result'];
+
+        $paginacao['total_rows'] = $result['total_rows'];
+
+        $this->pagination->initialize($paginacao);
+        
+        $data['paginacao'] = $this->pagination->create_links();
+
+        
 
         // Monta a tela de visualização
         $this->load->view('include/header');

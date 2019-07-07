@@ -31,14 +31,25 @@ class Pessoa extends CI_Model
       * @param boolean $inativo
       * @return void
       */
-    public function get($inativo = FALSE)
+    public function get(bool $inativo = FALSE, array &$paginacao = NULL)
     {
         $where = array();
 
         if (!$inativo)
             $where = ['inativo' => FALSE];
 
-        return $this->db->select('pessoa.*, TO_CHAR(AGE(now()::DATE, pessoa.data_nascimento::DATE), \'YY anos\') as idade')->get_where(self::TABLENAME, $where)->result();
+        $this->db->select('pessoa.*, TO_CHAR(AGE(now()::DATE, pessoa.data_nascimento::DATE), \'YY anos\') as idade')->from(self::TABLENAME)->where($where)->order_by('pessoa.nome');
+        
+        if (!is_null($paginacao))
+        {
+            $data['total_rows'] = $this->db->count_all_results('', FALSE);
+
+            $this->db->limit($paginacao['per_page'], $paginacao['offset']);
+        }
+
+        $data['result'] = $this->db->get()->result();
+
+        return $data;
     }
 
     public function cadastrar(string $codigo, string $nome, string $data_nascimento, string $telefone, string $email, string $observacao, array $campos_extras) :int

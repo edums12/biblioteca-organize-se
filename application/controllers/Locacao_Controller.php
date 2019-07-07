@@ -26,7 +26,17 @@ class Locacao_Controller extends CI_Controller
 
     public function listar()
     {
-        $data['locacoes'] = $this->Locacao->get();
+        $paginacao = Base::configuracao_paginacao('locacoes/listar', 3);
+
+        $result = $this->Locacao->get($paginacao);
+
+        $data['locacoes'] = $result['result'];
+
+        $paginacao['total_rows'] = $result['total_rows'];
+
+        $this->pagination->initialize($paginacao);
+        
+        $data['paginacao'] = $this->pagination->create_links();
 
         $this->load->view('include/header');
         $this->load->view('include/navbar');
@@ -36,7 +46,7 @@ class Locacao_Controller extends CI_Controller
 
     public function nova()
     {
-        $data['pessoas'] = $this->Pessoa->get();
+        $data['pessoas'] = $this->Pessoa->get()['result'];
         $data['exemplares'] = $this->Exemplar->listar_exemplares_para_locar();
 
         $config = $this->Configuracao->get_config_locacao();

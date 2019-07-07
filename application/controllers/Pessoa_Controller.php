@@ -24,7 +24,17 @@ class Pessoa_Controller extends CI_Controller
 
     public function listar()
     {
-        $data['pessoas'] = $this->Pessoa->get(TRUE);
+        $paginacao = Base::configuracao_paginacao('pessoas/listar', 3);
+
+        $result = $this->Pessoa->get(TRUE, $paginacao);
+        
+        $data['pessoas'] = $result['result'];
+
+        $paginacao['total_rows'] = $result['total_rows'];
+
+        $this->pagination->initialize($paginacao);
+        
+        $data['paginacao'] = $this->pagination->create_links();
         
         // Monta a tela de visualização
         $this->load->view('include/header');

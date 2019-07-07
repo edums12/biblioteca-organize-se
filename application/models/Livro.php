@@ -70,9 +70,9 @@ class Livro extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function get()
+    public function get(array &$paginacao = NULL)
     {
-        return 
+         
         $this->db
              ->select('
                 livro.id_livro,
@@ -107,9 +107,18 @@ class Livro extends CI_Model
             ->join(Categoria::TABLENAME, 'id_categoria', 'inner')
             ->join(Prateleira::TABLENAME, 'id_prateleira', 'inner')
             ->join(Corredor::TABLENAME, 'id_corredor', 'inner')
-            ->order_by('livro.titulo', 'ASC')
-            ->get()
-            ->result();
+            ->order_by('livro.titulo', 'ASC');
+
+        if (!is_null($paginacao))
+        {
+            $data['total_rows'] = $this->db->count_all_results('', FALSE);
+
+            $this->db->limit($paginacao['per_page'], $paginacao['offset']);
+        }
+
+        $data['result'] = $this->db->get()->result();
+
+        return $data;
     }
 
     public function find(int $id)

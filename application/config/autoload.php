@@ -47,6 +47,7 @@ $autoload['packages'] = array();
 | -------------------------------------------------------------------
 | These are the classes located in system/libraries/ or your
 | application/libraries/ directory, with the addition of the
+
 | 'database' library, which is somewhat of a special case.
 |
 | Prototype:
@@ -58,7 +59,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'session', 'form_validation');
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'pagination');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +133,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Usuario', 'Configuracao');
+$autoload['model'] = array('Usuario', 'Configuracao', 'Base');

@@ -1,4 +1,4 @@
-<?php
+ <?php
 defined('BASEPATH') or exit("Não é possível acessar esse código diretamente!");
 
 /**
@@ -13,7 +13,7 @@ class Corredor extends CI_Model
     const TABLENAME = "corredor";
 
     /**
-     * Tabelas do banco de dados:
+     * Tabela do banco de dados:
      *  id_corredor
      *  corredor
      *  criado_em
@@ -25,7 +25,6 @@ class Corredor extends CI_Model
         parent::__construct();
 
         $this->load->model('Prateleira');
-
     }
 
     /**

@@ -70,43 +70,51 @@ class Locacao extends CI_Model
      *
      * @return void
      */
-    public function get()
+    public function get(array &$paginacao = NULL)
     {
-        return 
-            $this->db
-                 ->select('
-                    locacao.id_locacao,
-                    locacao.data_locacao,
-                    locacao.data_planejada_entrega,
-                    locacao.data_entrega,
-                    locacao.observacao,
+        $this->db
+            ->select('
+            locacao.id_locacao,
+            locacao.data_locacao,
+            locacao.data_planejada_entrega,
+            locacao.data_entrega,
+            locacao.observacao,
 
-                    CASE WHEN (DATE_PART(\'day\', NOW() - locacao.data_planejada_entrega::TIMESTAMP) >= 1) THEN
-                        (DATE_PART(\'day\', NOW() - locacao.data_planejada_entrega::TIMESTAMP))::integer * config_locacao.valor_multa_por_dia
-                    ELSE
-                        0
-                    END AS multa,
+            CASE WHEN (DATE_PART(\'day\', NOW() - locacao.data_planejada_entrega::TIMESTAMP) >= 1) THEN
+                (DATE_PART(\'day\', NOW() - locacao.data_planejada_entrega::TIMESTAMP))::integer * config_locacao.valor_multa_por_dia
+            ELSE
+                0
+            END AS multa,
 
-                    exemplar.id_exemplar,
-                    exemplar.codigo as codigo_exemplar,
+            exemplar.id_exemplar,
+            exemplar.codigo as codigo_exemplar,
 
-                    livro.id_livro,
-                    livro.codigo as codigo_livro,
-                    livro.titulo as titulo_livro,
+            livro.id_livro,
+            livro.codigo as codigo_livro,
+            livro.titulo as titulo_livro,
 
-                    pessoa.id_pessoa,
-                    pessoa.codigo as codigo_pessoa,
-                    pessoa.nome as nome_pessoa
-                 ')
-                 ->from(Configuracao::TABLENAME_CONFIG_LOCACOES)
-                 ->from(self::TABLENAME)
-                 ->join(Exemplar::TABLENAME, 'id_exemplar', 'inner')
-                 ->join(Livro::TABLENAME, 'id_livro', 'inner')
-                 ->join(Pessoa::TABLENAME, 'id_pessoa', 'inner')
-                 ->where('encerrada', FALSE)
-                 ->order_by('data_planejada_entrega', 'desc')
-                 ->get()
-                 ->result();
+            pessoa.id_pessoa,
+            pessoa.codigo as codigo_pessoa,
+            pessoa.nome as nome_pessoa
+            ')
+            ->from(Configuracao::TABLENAME_CONFIG_LOCACOES)
+            ->from(self::TABLENAME)
+            ->join(Exemplar::TABLENAME, 'id_exemplar', 'inner')
+            ->join(Livro::TABLENAME, 'id_livro', 'inner')
+            ->join(Pessoa::TABLENAME, 'id_pessoa', 'inner')
+            ->where('encerrada', FALSE)
+            ->order_by('data_planejada_entrega', 'ASC');
+
+        if (!is_null($paginacao))
+        {
+            $data['total_rows'] = $this->db->count_all_results('', FALSE);
+
+            $this->db->limit($paginacao['per_page'], $paginacao['offset']);
+        }
+
+        $data['result'] = $this->db->get()->result();
+
+        return $data;
     }
 
     /**
