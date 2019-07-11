@@ -11,6 +11,7 @@ defined('BASEPATH') or exit("Não é possível acessar esse código diretamente!
 class Base extends CI_Model
 {
     const PER_PAGE = 25;
+    const NUM_LINKS = 5;
 
     public static function configuracao_paginacao(string $url, int $uri_segment) :array
     {
@@ -21,7 +22,7 @@ class Base extends CI_Model
             "per_page" => self::PER_PAGE,
             "uri_segment" => $uri_segment,
             "offset" => ($CI->uri->segment($uri_segment)) ? $CI->uri->segment($uri_segment) : 0,
-            "num_links" => 5,
+            "num_links" => self::NUM_LINKS,
             "reuse_query_string" => TRUE,
 
             "full_tag_open" => "<nav><ul class=\"pagination justify-content-end mb-0\">",

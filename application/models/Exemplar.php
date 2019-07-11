@@ -70,7 +70,8 @@ class Exemplar extends CI_Model
                  ->from(self::TABLENAME)
                  ->join('livro', 'id_livro', 'inner')
                  ->where('status_exemplar', self::STATUS_LIVRE)
-                 ->order_by('livro.titulo')
+                 ->order_by('livro.titulo', 'asc')
+                 ->order_by('exemplar.codigo', 'asc')
                  ->get()->result();
     }
 

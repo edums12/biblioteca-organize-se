@@ -28,19 +28,18 @@
                             <div class="col-sm-12 col-lg-4">
                                 <div class="list-scroll pessoas">
                                     <p>Clique sobre a pessoa para selecioná-la</p>
-                                    <?php foreach($pessoas as $pessoa): ?>
-                                        <a href="#" class="d-block list-group-item prateleira-item-select" data-id="<?= $pessoa->id_pessoa?>"><?= "{$pessoa->codigo} - {$pessoa->nome}"?>
-                                        </a>
-                                    <?php endforeach;?>
+                                    <input class="form-control" id="procurar-pessoa" placeholder="Código ou nome da pessoa" type="text">
+                                    <br>
+                                    <div class="pessoas-itens"></div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-lg-4">
-                                <div class="list-scroll livros">
+                                <div class="list-scroll exemplares">
                                     <p>Clique sobre o exemplar para selecioná-lo</p>
-                                    <?php foreach($exemplares as $exemplar): ?>
-                                        <a href="#" class="d-block list-group-item prateleira-item-select" data-id="<?= $exemplar->id_exemplar?>"><?= "{$exemplar->codigo} - {$exemplar->titulo}"?></a>
-                                    <?php endforeach;?>
+                                    <input class="form-control" id="procurar-exemplar" placeholder="Código ou título do exemplar" type="text">
+                                    <br>
+                                    <div class="exemplares-itens"></div>
                                 </div>
                             </div>
 
@@ -91,12 +90,72 @@
 </div>
 
 <script>
-   $('.list-scroll.pessoas .list-group-item').on('click', (e) => {
-       e.preventDefault()
+    var pessoas = <?= $pessoas?>;
 
-       var target = $(e.currentTarget)
+    var exemplares = <?= $exemplares?>;
 
-       $('.list-scroll.pessoas .list-group-item').map((index, it) => {
+    var filtrarPessoas = (value) => {
+
+        var lista = $('.list-scroll.pessoas .pessoas-itens');
+
+        lista.html("")
+
+        pessoas.filter(it => {
+            if (value != null)
+                return (it.codigo.toLowerCase().includes(value.toLowerCase()) || it.nome.toLowerCase().includes(value.toLowerCase()))
+            else
+                return true
+        }).map(it => {
+            let a = 
+                $('<a>')
+                    .addClass('d-block')
+                    .addClass('list-group-item')
+                    .addClass('prateleira-item-select')
+                    .attr('data-id', it.id_pessoa)
+                    .attr('href', '#')
+                    .text(`${it.codigo} - ${it.nome}`)
+
+            if ($('input#input-id-pessoa').val() == it.id_pessoa)
+                a.addClass('active').append('<i class="fa fa-check text-success rigth"></i>')
+
+            lista.append(a);
+        })
+    }
+
+    var filtrarExemplares = (value) => {
+
+        var lista = $('.list-scroll.exemplares .exemplares-itens');
+
+        lista.html("")
+
+        exemplares.filter(it => {
+            if (value != null)
+                return (it.codigo.toLowerCase().includes(value.toLowerCase()) || it.titulo.toLowerCase().includes(value.toLowerCase()))
+            else
+                return true
+        }).map(it => {
+            let a = 
+                $('<a>')
+                    .addClass('d-block')
+                    .addClass('list-group-item')
+                    .addClass('prateleira-item-select')
+                    .attr('data-id', it.id_exemplar)
+                    .attr('href', '#')
+                    .text(`${it.codigo} - ${it.titulo}`)
+
+            if ($('input#input-id-exemplar').val() == it.id_exemplar)
+                a.addClass('active').append('<i class="fa fa-check text-success rigth"></i>')
+
+            lista.append(a);
+        })
+    }
+
+    $(document).on('click', '.list-scroll.pessoas .list-group-item', (e) => {
+        e.preventDefault()
+
+        var target = $(e.currentTarget)
+
+        $('.list-scroll.pessoas .list-group-item').map((index, it) => {
             let item = $(it)
 
             item.removeClass('active')
@@ -104,21 +163,19 @@
             var text = item.text();
 
             item.html(text.replace('<i class="fa fa-check text-success rigth"></i>', ''))
-       })
-       
-       target.addClass('active')
+        })
+        
+        target.addClass('active').append('<i class="fa fa-check text-success rigth"></i>')
 
-       target.append('<i class="fa fa-check text-success rigth"></i>')
+        $('input#input-id-pessoa').val(target.data('id'))
+    })
 
-       $('input#input-id-pessoa').val(target.data('id'))
-   })
+    $(document).on('click', '.list-scroll.exemplares .list-group-item', (e) => {
+        e.preventDefault()
 
-   $('.list-scroll.livros .list-group-item').on('click', (e) => {
-       e.preventDefault()
+        var target = $(e.currentTarget)
 
-       var target = $(e.currentTarget)
-
-       $('.list-scroll.livros .list-group-item').map((index, it) => {
+        $('.list-scroll.exemplares .list-group-item').map((index, it) => {
             let item = $(it)
 
             item.removeClass('active')
@@ -126,12 +183,18 @@
             var text = item.text();
 
             item.html(text.replace('<i class="fa fa-check text-success rigth"></i>', ''))
-       })
-       
-       target.addClass('active')
+        })
+        
+        target.addClass('active').append('<i class="fa fa-check text-success rigth"></i>')
 
-       target.append('<i class="fa fa-check text-success rigth"></i>')
+        $('input#input-id-exemplar').val(target.data('id'))
+    })
 
-       $('input#input-id-exemplar').val(target.data('id'))
-   })
+    $(document).ready(() => {
+        filtrarPessoas(null)
+        filtrarExemplares(null)
+    })
+
+    $('#procurar-pessoa').on('keyup', (e) => filtrarPessoas($(e.currentTarget).val()))
+    $('#procurar-exemplar').on('keyup', (e) => filtrarExemplares($(e.currentTarget).val()))
 </script>
