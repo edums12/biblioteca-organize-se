@@ -52,7 +52,7 @@ class Locacao_Controller extends CI_Controller
         $config = $this->Configuracao->get_config_locacao();
 
         $data['dias_configuracao'] = $config->dias_para_locacao;
-        $data['data_previsao_entrega'] = date('m/d/Y', strtotime("now + {$config->dias_para_locacao} days"));
+        $data['data_previsao_entrega'] = date('d/m/Y', strtotime("now + {$config->dias_para_locacao} days"));
 
         $this->load->view('include/header');
         $this->load->view('include/navbar');
@@ -79,7 +79,7 @@ class Locacao_Controller extends CI_Controller
             $this->Locacao->cadastrar($id_exemplar, $id_pessoa, $data_locacao, $data_entrega, $observacao);
 
             $this->session->set_flashdata('success', 'Locação realizada com sucesso');
-            redirect(base_url('locacoes/nova'));
+            redirect(base_url('locacoes/listar'));
         }
         catch (Exception $e)
         {

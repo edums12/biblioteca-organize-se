@@ -25,41 +25,42 @@
                 <div class="card-body">
                     <form action="<?= base_url('locacoes/locar')?>" method="POST">
                         <div class="row">
-                            <div class="col-sm-12 col-lg-4">
+                            <div class="col-sm-12 col-lg-6">
+                                <p>Clique sobre a pessoa para selecioná-la</p>
                                 <div class="list-scroll pessoas">
-                                    <p>Clique sobre a pessoa para selecioná-la</p>
                                     <input class="form-control" id="procurar-pessoa" placeholder="Código ou nome da pessoa" type="text">
                                     <br>
                                     <div class="pessoas-itens"></div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-12 col-lg-4">
+                            <div class="col-sm-12 col-lg-6">
+                                <p>Clique sobre o exemplar para selecioná-lo</p>
                                 <div class="list-scroll exemplares">
-                                    <p>Clique sobre o exemplar para selecioná-lo</p>
                                     <input class="form-control" id="procurar-exemplar" placeholder="Código ou título do exemplar" type="text">
                                     <br>
                                     <div class="exemplares-itens"></div>
                                 </div>
                             </div>
-
-                            <div class="col-sm-12 col-lg-4">
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-sm-12 col-lg-12">
                                 <input type="hidden" name="input-id-pessoa" id="input-id-pessoa" required>
                                 <input type="hidden" name="input-id-exemplar" id="input-id-exemplar" required>
 
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-sm-12 col-lg-6">
                                         <label class="form-control-label" for="input-data-locacao">Data da locação</label>
                                         <div class="input-group input-group-alternative">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                             </div>
-                                            <input class="form-control datepicker" id="input-data-locacao" name="input-data-locacao" placeholder="Data da locação" type="text" value="<?= date('m/d/Y') ?>" required>
+                                            <input class="form-control datepicker" id="input-data-locacao" name="input-data-locacao" placeholder="Data da locação" type="text" value="<?= date('d/m/Y') ?>" required>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mt-3">
-                                    <div class="col-lg-12">
+                                <!-- </div>
+                                <div class="row mt-3"> -->
+                                    <div class="col-sm-12 col-lg-6">
                                         <label class="form-control-label" for="input-data-entrega">Data de entrega</label> <small><i>(Daqui a <?= $dias_configuracao?> dias)</i></small>
                                         <div class="input-group input-group-alternative">
                                             <div class="input-group-prepend">

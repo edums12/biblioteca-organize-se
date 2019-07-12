@@ -27,6 +27,7 @@
   <!-- Core -->
   <script src="<?= base_url("assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js") ?>"></script>
   <script src="<?= base_url("assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js") ?>"></script>
+  <script src="<?= base_url("assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.pt-BR.min.js") ?>"></script>
   <!-- Argon JS -->
   <script src="<?= base_url("assets/js/argon.js?v=1.0.0") ?>"></script>
   

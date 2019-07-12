@@ -59,8 +59,8 @@ input.invalid{
 
 
 .list-scroll{
-    min-height: 21em;
-    max-height: 21em;
+    min-height: 30em;
+    max-height: 30em;
     overflow-y: scroll;
     padding-right: 1rem;
 }

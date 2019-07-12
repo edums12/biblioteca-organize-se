@@ -29,7 +29,6 @@
                             <tr>
                                 <th scope="col">Código</th>
                                 <th scope="col">Nome</th>
-                                <th scope="col">Idade</th>
                                 <th scope="col">Telefone</th>
                                 <th scope="col">Status</th>
                                 <th scope="col"></th>
@@ -43,9 +42,6 @@
                                     </th>
                                     <td>
                                         <?= $pessoa->nome ?>
-                                    </td>
-                                    <td>
-                                        <?= $pessoa->idade ?>
                                     </td>
                                     <td>
                                         <?= $pessoa->telefone ?>
