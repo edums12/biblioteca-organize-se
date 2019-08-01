@@ -70,12 +70,6 @@ class Locacao_Controller extends CI_Controller
             $data_entrega = $this->input->post('input-data-entrega');
             $observacao = $this->input->post('textarea-observacao');
 
-            $data_locacao_exploded = explode('/', $data_locacao);
-            $data_locacao = "{$data_locacao_exploded[1]}-{$data_locacao_exploded[0]}-{$data_locacao_exploded[2]}";
-
-            $data_entrega_exploded = explode('/', $data_entrega);
-            $data_entrega = "{$data_entrega_exploded[1]}-{$data_entrega_exploded[0]}-{$data_entrega_exploded[2]}";
-
             $this->Locacao->cadastrar($id_exemplar, $id_pessoa, $data_locacao, $data_entrega, $observacao);
 
             $this->session->set_flashdata('success', 'Locação realizada com sucesso');
@@ -93,9 +87,29 @@ class Locacao_Controller extends CI_Controller
     {
         try 
         {
-            $this->Locacao->encerrar($id, date('Y-m-d', strtotime('now')));
+            $multa = $this->input->post('multa') ?? 0;
+
+            $this->Locacao->encerrar($id, date('Y-m-d', strtotime('now')), $multa);
             
             $this->session->set_flashdata('success', 'locação finalizada');
+        }
+        catch (Exception $e)
+        {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        finally
+        {
+            redirect(base_url('locacoes/listar'));
+        }
+    }
+
+    public function excluir(int $id)
+    {
+        try 
+        {
+            $this->Locacao->excluir($id);
+            
+            $this->session->set_flashdata('success', 'locação excluída');
         }
         catch (Exception $e)
         {

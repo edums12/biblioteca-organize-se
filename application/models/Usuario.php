@@ -170,6 +170,14 @@ class Usuario extends CI_Model
      */
     public function get()
     {
+        if ($this->input->get('search'))
+        {
+            $this->db
+                ->or_like('nome', $this->input->get('search'))
+                ->or_like('acesso', $this->input->get('search'))
+                ->or_like('observacao', $this->input->get('search'));
+        }
+
         return $this->db->order_by('nome', 'ASC')->get(self::TABLENAME)->result();
     }
 

@@ -70,7 +70,6 @@ class Corredor extends CI_Model
      */
     public function get()
     {
-        return
         $this->db
              ->select('
                 corredor.id_corredor,
@@ -80,12 +79,19 @@ class Corredor extends CI_Model
 
                 count(prateleira.id_prateleira) AS quantidade_prateleiras
              ')
-             ->from(self::TABLENAME)
              ->join(Prateleira::TABLENAME, 'id_corredor', 'left')
              ->group_by('corredor.id_corredor, corredor.corredor, corredor.criado_em')
-             ->order_by('corredor.corredor', 'ASC')
-             ->get()
-             ->result();
+             ->order_by('corredor.corredor', 'ASC');
+
+        if ($this->input->get('search'))
+        {
+            $this->db
+                 ->or_like('corredor.corredor', $this->input->get('search'))
+                 ->or_like('prateleira.prateleira', $this->input->get('search'));
+        }
+
+
+        return $this->db->get(self::TABLENAME)->result();
     }
 
     public function find(int $id_corredor)

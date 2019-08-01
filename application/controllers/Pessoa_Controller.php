@@ -57,15 +57,11 @@ class Pessoa_Controller extends CI_Controller
         {
             $codigo = $this->input->post('input-codigo');
             $nome = $this->input->post('input-nome');
-            $data_nascimento = $this->input->post('input-data-nascimento');
             $telefone = $this->input->post('input-telefone');
             $email = $this->input->post('input-email');
             $observacao = $this->input->post('textarea-observacao');
 
-            $data_nascimento_exploded = explode('/', $data_nascimento);
-            $data_nascimento = "{$data_nascimento_exploded[1]}-{$data_nascimento_exploded[0]}-{$data_nascimento_exploded[2]}";
-
-            $this->Pessoa->cadastrar($codigo, $nome, $data_nascimento, $telefone, $email, $observacao, array());
+            $this->Pessoa->cadastrar($codigo, $nome, $telefone, $email, $observacao, array());
 
             $this->session->set_flashdata('success', 'Pessoa cadastrada com successo');
 
@@ -104,15 +100,11 @@ class Pessoa_Controller extends CI_Controller
         {
             $id = intval($this->input->post('input-id'));
             $nome = $this->input->post('input-nome');
-            $data_nascimento = $this->input->post('input-data-nascimento');
             $telefone = $this->input->post('input-telefone');
             $email = $this->input->post('input-email');
             $observacao = $this->input->post('textarea-observacao');
 
-            $data_nascimento_exploded = explode('/', $data_nascimento);
-            $data_nascimento = "{$data_nascimento_exploded[1]}-{$data_nascimento_exploded[0]}-{$data_nascimento_exploded[2]}";
-
-            $this->Pessoa->atualizar($id, $nome, $data_nascimento, $telefone, $email, $observacao, array());
+            $this->Pessoa->atualizar($id, $nome, $telefone, $email, $observacao, array());
 
             $this->session->set_flashdata('success', 'Pessoa atualizada com successo');
 

@@ -62,6 +62,7 @@ $route['configuracao/locacao'] = 'Configuracao_Controller/atualizar_configuracao
 $route['locacoes/nova'] = 'Locacao_Controller/nova';
 $route['locacoes/locar'] = 'Locacao_Controller/locar';
 $route['locacoes/encerrar/(:num)'] = 'Locacao_Controller/encerrar/$1';
+$route['locacoes/excluir/(:num)'] = 'Locacao_Controller/excluir/$1';
 
 $route['locacoes/listar'] = 'Locacao_Controller/listar';
 $route['locacoes/listar/(:num)'] = 'Locacao_Controller/listar';

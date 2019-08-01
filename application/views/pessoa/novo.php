@@ -26,25 +26,16 @@
                     <form action="<?= base_url('pessoas/cadastrar')?>" method="POST">
                         <h6 class="heading-small text-muted mb-4">Informações</h6>
                         <div class="row">
-                            <div class="col-lg-2 col-sm-12">
+                            <div class="col-lg-3 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-codigo">Código</label>
                                     <input type="text" id="input-codigo" name="input-codigo" class="form-control form-control-alternative" required>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-sm-12">
+                            <div class="col-lg-9 col-sm-12">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-nome">Nome</label>
+                                    <label class="form-control-label" for="input-nome">Nome completo</label>
                                     <input type="text" id="input-nome" name="input-nome" class="form-control form-control-alternative" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <label class="form-control-label" for="input-data-nascimento">Data de aniversário</label>
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
-                                    </div>
-                                    <input class="form-control datepicker" id="input-data-nascimento" name="input-data-nascimento" placeholder="Data de aniversário" type="text" value="" required>
                                 </div>
                             </div>
                         </div>

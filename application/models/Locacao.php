@@ -62,7 +62,11 @@ class Locacao extends CI_Model
             ]
         );
 
-        return $this->db->insert_id();
+        $id = $this->db->insert_id();
+
+        $this->Exemplar->atualizar_status($id_exemplar, Exemplar::STATUS_LOCADO);
+
+        return $id;
     }
 
     /**
@@ -79,6 +83,8 @@ class Locacao extends CI_Model
             locacao.data_planejada_entrega,
             locacao.data_entrega,
             locacao.observacao,
+
+            EXTRACT(days FROM AGE(locacao.data_planejada_entrega, NOW()::DATE)) AS dias_restantes,
 
             CASE WHEN (DATE_PART(\'day\', NOW() - locacao.data_planejada_entrega::TIMESTAMP) >= 1) THEN
                 (DATE_PART(\'day\', NOW() - locacao.data_planejada_entrega::TIMESTAMP))::integer * config_locacao.valor_multa_por_dia
@@ -135,7 +141,7 @@ class Locacao extends CI_Model
      * @param string $data_entrega
      * @return void
      */
-    public function encerrar(int $id_locacao, string $data_entrega)
+    public function encerrar(int $id_locacao, string $data_entrega, float $multa = 0)
     {
         $locacao = $this->find($id_locacao);
 
@@ -148,12 +154,27 @@ class Locacao extends CI_Model
             [
                 'data_entrega' => $data_entrega,
                 'encerrada' => TRUE,
-                'multa' => 0
+                'multa' => $multa
             ],
             ['id_locacao' => $id_locacao]
         );
 
-        return $this->find($id_locacao);
+        $locacao = $this->find($id_locacao);
+
+        $this->Exemplar->atualizar_status($locacao->id_exemplar, Exemplar::STATUS_LIVRE);
+    }
+
+    public function excluir(int $id_locacao)
+    {
+        $locacao = $this->find($id_locacao);
+
+        if (empty($locacao)) throw new Exception("Locação inexistente");
+
+        if ($locacao->encerrada) throw new Exception("Locação já foi encerrada");
+
+        $this->db->delete(self::TABLENAME, ['id_locacao' => $id_locacao]);
+
+        $this->Exemplar->atualizar_status($locacao->id_exemplar, Exemplar::STATUS_LIVRE);
     }
 
     private function validar(int $id_exemplar, int $id_pessoa, string $data_locacao, string $data_planejada_entrega) : void
@@ -162,7 +183,6 @@ class Locacao extends CI_Model
         if (empty($id_pessoa) || $id_pessoa <= 0) throw new Exception("Pessoa não informada");
         if (empty($data_locacao)) throw new Exception("Data da locação não indicada");
         if (empty($data_planejada_entrega)) throw new Exception("Data de entrega não indicada");
-
     }
 
 }

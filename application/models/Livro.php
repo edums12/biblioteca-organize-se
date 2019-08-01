@@ -109,6 +109,19 @@ class Livro extends CI_Model
             ->join(Corredor::TABLENAME, 'id_corredor', 'inner')
             ->order_by('livro.titulo', 'ASC');
 
+        if ($this->input->get('search'))
+        {
+            $this->db
+                ->or_like('livro.codigo', $this->input->get('search'))
+                ->or_like('livro.titulo', $this->input->get('search'))
+                ->or_like('livro.isbn', $this->input->get('search'))
+                ->or_like('livro.observacao', $this->input->get('search'))
+                ->or_like('escritor.nome', $this->input->get('search'))
+                ->or_like('categoria.categoria', $this->input->get('search'))
+                ->or_like('prateleira.prateleira', $this->input->get('search'))
+                ->or_like('corredor.corredor', $this->input->get('search'));
+        }
+
         if (!is_null($paginacao))
         {
             $data['total_rows'] = $this->db->count_all_results('', FALSE);

@@ -17,11 +17,18 @@
         <div class="col">
             <div class="card shadow">
                 <div class="card-header border-0">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-sm-12">
-                            <h3 class="mb-0">Pessoas cadastradas</h3>
+                    <form method="GET">
+                        <div class="row align-items-center">
+                            <div class="col-lg-3 col-sm-12">
+                                <h3 class="mb-0">Pessoas cadastradas</h3>
+                            </div>
+                            <div class="col-lg-5 col-sm-12 offset-lg-4">
+                                <div class="form-group mb-0">
+                                    <input type="search" name="search" class="form-control form-control-alternative" placeholder="Pesquisar..." value="<?= $this->input->get('search')?>">
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">

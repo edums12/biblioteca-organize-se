@@ -17,7 +17,6 @@ class Pessoa extends CI_Model
      *  id_pessoa
      *  codigo
      *  nome
-     *  data_nascimento
      *  telefone
      *  email
      *  observacao
@@ -38,7 +37,16 @@ class Pessoa extends CI_Model
         if (!$inativo)
             $where = ['inativo' => FALSE];
 
-        $this->db->select('pessoa.*, TO_CHAR(AGE(now()::DATE, pessoa.data_nascimento::DATE), \'YY anos\') as idade')->from(self::TABLENAME)->where($where)->order_by('pessoa.nome');
+        $this->db->where($where)->order_by('pessoa.nome');
+
+        if ($this->input->get('search'))
+        {
+            $this->db
+                ->or_like('codigo', $this->input->get('search'))
+                ->or_like('nome', $this->input->get('search'))
+                ->or_like('email', $this->input->get('search'))
+                ->or_like('observacao', $this->input->get('search'));
+        }
         
         if (!is_null($paginacao))
         {
@@ -47,21 +55,20 @@ class Pessoa extends CI_Model
             $this->db->limit($paginacao['per_page'], $paginacao['offset']);
         }
 
-        $data['result'] = $this->db->get()->result();
+        $data['result'] = $this->db->get(self::TABLENAME)->result();
 
         return $data;
     }
 
-    public function cadastrar(string $codigo, string $nome, string $data_nascimento, string $telefone, string $email, string $observacao, array $campos_extras) :int
+    public function cadastrar(string $codigo, string $nome, string $telefone, string $email, string $observacao, array $campos_extras) :int
     {
-        $this->validar($nome, $data_nascimento);
+        $this->validar($nome);
 
         $this->db->insert(
             self::TABLENAME,
             [
                 'codigo' => $codigo,
                 'nome' => $nome,
-                'data_nascimento' => $data_nascimento,
                 'telefone' => $telefone,
                 'email' => $email,
                 'observacao' => $observacao
@@ -82,18 +89,17 @@ class Pessoa extends CI_Model
 
     public function find(int $id)
     {
-        return $this->db->select('pessoa.*, age(now()::date, pessoa.data_nascimento::date) as idade')->get_where(self::TABLENAME, ['id_pessoa' => $id])->row();
+        return $this->db->get_where(self::TABLENAME, ['id_pessoa' => $id])->row();
     }
 
-    public function atualizar(int $id_pessoa, string $nome, string $data_nascimento, string $telefone, string $email, string $observacao, array $campos_extras)
+    public function atualizar(int $id_pessoa, string $nome, string $telefone, string $email, string $observacao, array $campos_extras)
     {
-        $this->validar($nome, $data_nascimento);
+        $this->validar($nome);
 
         $this->db->update(
             self::TABLENAME,
             [
                 'nome' => $nome,
-                'data_nascimento' => $data_nascimento,
                 'telefone' => $telefone,
                 'email' => $email,
                 'observacao' => $observacao
@@ -156,10 +162,9 @@ class Pessoa extends CI_Model
         return $this->db->update(self::TABLENAME, array('inativo' => false), array('id_pessoa' => $id_pessoa));
     }
 
-    private function validar(string $nome, string $data_nascimento)
+    private function validar(string $nome)
     {
         if (empty($nome)) throw new Exception("Nome não informado");
-        if (empty($data_nascimento)) throw new Exception("Data de nascimento não informada");
     }
     
 }

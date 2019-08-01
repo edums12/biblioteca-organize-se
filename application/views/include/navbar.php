@@ -30,32 +30,27 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url("locacoes/listar")?>">
+                    <a class="nav-link <?= $this->uri->segment(1) == 'locacoes' ? 'active' : ''?>" href="<?= base_url("locacoes/listar")?>">
                         <i class="ni ni-tag text-blue"></i> Locações
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('livros/listar') ?>">
+                    <a class="nav-link <?= $this->uri->segment(1) == 'livros' ? 'active' : ''?>" href="<?= base_url('livros/listar') ?>">
                         <i class="ni ni-books text-blue"></i> Livros e Exemplares
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('pessoas/listar') ?>">
+                    <a class="nav-link <?= $this->uri->segment(1) == 'pessoas' ? 'active' : ''?>" href="<?= base_url('pessoas/listar') ?>">
                         <i class="ni ni-badge text-blue"></i> Pessoas
                     </a>
                 </li>
                 <?php if (in_array($this->session->userdata('tipo_acesso'), [Usuario::ADMIN])) : ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('usuarios/listar') ?>">
+                        <a class="nav-link <?= $this->uri->segment(1) == 'usuarios' ? 'active' : ''?>" href="<?= base_url('usuarios/listar') ?>">
                             <i class="ni ni-circle-08 text-blue"></i> Usuários
                         </a>
                     </li>
                 <?php endif; ?>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="ni ni-single-copy-04 text-blue"></i> Relatórios
-                    </a>
-                </li> -->
             </ul>
             <!-- Divider -->
             <hr class="my-3">
@@ -65,18 +60,13 @@
             <h6 class="navbar-heading text-muted">Configurações</h6>
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
-                <!-- <li class="nav-item">
-                    <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
-                        <i class="ni ni-badge"></i> Pessoas
-                    </a>
-                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-configuracao-locacoes">
                         <i class="ni ni-money-coins"></i> Locações
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('corredores/listar') ?>">
+                    <a class="nav-link <?= $this->uri->segment(1) == 'corredores' ? 'active' : ''?>" href="<?= base_url('corredores/listar') ?>">
                         <i class="fa fa-archive"></i> Corredores
                     </a>
                 </li>
