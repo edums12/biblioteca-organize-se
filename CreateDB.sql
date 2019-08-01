@@ -111,7 +111,8 @@ CREATE TABLE locacao(
 CREATE TABLE config_locacao(
 	dias_para_locacao INTEGER CHECK(dias_para_locacao > 0) NOT NULL,
 	valor_multa_por_dia DECIMAL(15,2) CHECK(valor_multa_por_dia >= 0) NOT NULL,
-	dias_prazo_retirada INTEGER CHECK(dias_prazo_retirada > 0) NOT NULL
+	dias_prazo_retirada INTEGER CHECK(dias_prazo_retirada > 0) NOT NULL,
+	numero_maximo_locacoes INTEGER CHECK(numero_maximo_locacoes >= 0) NOT NULL
 );
 
 CREATE OR REPLACE FUNCTION get_config_dias_prazo_retirada() 
@@ -128,4 +129,4 @@ CREATE TABLE reserva(
 
 INSERT INTO usuario (nome, acesso, senha, tipo_acesso) VALUES ('Administrador', 'admin', '200820e3227815ed1756a6b531e7e0d2', 'administrador');
 
-INSERT INTO config_locacao(dias_para_locacao, valor_multa_por_dia) VALUES (15, 0.10, 3);
+INSERT INTO config_locacao(dias_para_locacao, valor_multa_por_dia, dias_prazo_retirada, numero_maximo_locacoes) VALUES (15, 0.10, 3, 3);

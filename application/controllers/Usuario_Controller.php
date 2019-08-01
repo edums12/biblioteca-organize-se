@@ -124,6 +124,9 @@ class Usuario_Controller extends CI_Controller
     {
         try
         {
+            if ($this->session->userdata('id') == $id)
+                throw new Exception("Você não pode inativar o seu próprio usuário");
+
             $this->Usuario->inativar($id);
 
             // Redireciona a tela com aviso de erro

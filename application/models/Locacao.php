@@ -177,6 +177,27 @@ class Locacao extends CI_Model
         $this->Exemplar->atualizar_status($locacao->id_exemplar, Exemplar::STATUS_LIVRE);
     }
 
+    public function carregar_pessoas()
+    {
+        $this->load->model('Pessoa');
+
+        return
+            $this->db
+                 ->select("
+                    pessoa.id_pessoa,
+                    pessoa.codigo,
+                    pessoa.nome,
+                    COALESCE(COUNT(locacao.id_locacao), 0) AS total_locacao,
+                    COALESCE(COUNT(locacao.id_locacao), 0) <= (SELECT numero_maximo_locacoes FROM config_locacao) AS pode_locar
+                 ")
+                 ->from(Pessoa::TABLENAME)
+                 ->join('(SELECT * FROM locacao WHERE encerrada IS FALSE) AS locacao', 'id_pessoa', 'left')
+                 ->where('pessoa.inativo', FALSE)
+                 ->group_by("pessoa.id_pessoa, pessoa.codigo, pessoa.nome")
+                 ->get()
+                 ->result();
+    }
+
     private function validar(int $id_exemplar, int $id_pessoa, string $data_locacao, string $data_planejada_entrega) : void
     {
         if (empty($id_exemplar) || $id_exemplar <= 0) throw new Exception("Exemplar não informado");

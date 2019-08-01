@@ -24,11 +24,15 @@ class Configuracao extends CI_Model
      * @param float $multa - Valor da multa por dia de atraso
      * @return void
      */
-    public function set_config_locacao(int $dias, float $multa)
+    public function set_config_locacao(int $dias, float $multa, int $numero_maximo_locacoes)
     {
         $this->db->update(
             self::TABLENAME_CONFIG_LOCACOES, 
-            ['dias_para_locacao' => $dias, 'valor_multa_por_dia' => $multa]
+            [
+                'dias_para_locacao' => $dias, 
+                'valor_multa_por_dia' => $multa,
+                'numero_maximo_locacoes' => $numero_maximo_locacoes
+            ]
         );
     }
 

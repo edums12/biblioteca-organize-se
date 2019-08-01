@@ -71,7 +71,14 @@ input.invalid{
     color: #333;
 }
 
-.list-scroll a.active i{
+.list-scroll a.inactive{
+    background: rgba(255, 160, 160, 0.404) !important;
+    border: 1px solid rgb(220, 53, 69) !important;
+    color: #333;
+}
+
+.list-scroll a.active i,
+.list-scroll a.inactive i{
     float: right;
     padding: .2rem;
     border-radius: 100%;

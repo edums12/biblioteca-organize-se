@@ -77,6 +77,13 @@
                                 </td>
                             </tr>
                             <?php endforeach; ?>
+                            <?php if (count($livros) == 0):?>
+                                <tr>
+                                    <td colspan="7">
+                                        Nenhum livro cadastrado.
+                                    </td>
+                                </tr>
+                            <?php endif;?>
                         </tbody>
                     </table>
                 </div>

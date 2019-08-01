@@ -77,6 +77,13 @@
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                            <?php if (count($pessoas) == 0):?>
+                                <tr>
+                                    <td colspan="5">
+                                        Nenhuma pessoa cadastrada.
+                                    </td>
+                                </tr>
+                            <?php endif;?>
                         </tbody>
                     </table>
                 </div>

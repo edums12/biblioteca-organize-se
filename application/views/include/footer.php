@@ -8,7 +8,7 @@
 <div class="container container-alert">
   <div class="alert alert-danger alert-dismissible fade hide" role="alert">
       <span class="alert-inner--text"><span class="message"></span></span>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button type="button" class="close">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
@@ -17,7 +17,7 @@
 <div class="container container-alert">
   <div class="alert alert-success alert-dismissible fade hide" role="alert">
       <span class="alert-inner--text"><span class="message"></span></span>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <button type="button" class="close">
           <span aria-hidden="true">&times;</span>
       </button>
   </div>
@@ -54,6 +54,14 @@
         }, 8000);
       <?php endif;?>
 
+        $('.alert .close').click(function(e){
+          e.preventDefault();
+
+          var alert = $(e.currentTarget).parent();
+
+          alert.removeClass('show');
+          alert.addClass('hide');
+        });
     });
   </script>
 

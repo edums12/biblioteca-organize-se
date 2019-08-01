@@ -70,6 +70,13 @@
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                            <?php if (count($locacoes) == 0):?>
+                                <tr>
+                                    <td colspan="7">
+                                        Nenhuma locação registrada.
+                                    </td>
+                                </tr>
+                            <?php endif;?>
                         </tbody>
                     </table>
                 </div>

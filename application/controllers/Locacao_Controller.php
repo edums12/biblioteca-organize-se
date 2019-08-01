@@ -46,7 +46,7 @@ class Locacao_Controller extends CI_Controller
 
     public function nova()
     {
-        $data['pessoas'] = json_encode($this->Pessoa->get()['result']);
+        $data['pessoas'] = json_encode($this->Locacao->carregar_pessoas());
         $data['exemplares'] = json_encode($this->Exemplar->listar_exemplares_para_locar());
 
         $config = $this->Configuracao->get_config_locacao();

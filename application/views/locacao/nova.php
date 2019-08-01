@@ -58,8 +58,7 @@
                                             <input class="form-control datepicker" id="input-data-locacao" name="input-data-locacao" placeholder="Data da locação" type="text" value="<?= date('d/m/Y') ?>" required>
                                         </div>
                                     </div>
-                                <!-- </div>
-                                <div class="row mt-3"> -->
+
                                     <div class="col-sm-12 col-lg-6">
                                         <label class="form-control-label" for="input-data-entrega">Data de entrega</label> <small><i>(Daqui a <?= $dias_configuracao?> dias)</i></small>
                                         <div class="input-group input-group-alternative">
@@ -112,6 +111,7 @@
                     .addClass('d-block')
                     .addClass('list-group-item')
                     .addClass('prateleira-item-select')
+                    .attr('data-pode-locar', it.pode_locar)
                     .attr('data-id', it.id_pessoa)
                     .attr('href', '#')
                     .text(`${it.codigo} - ${it.nome}`)
@@ -155,6 +155,25 @@
         e.preventDefault()
 
         var target = $(e.currentTarget)
+
+        var danger = $('.list-scroll.pessoas .list-group-item.inactive');
+        danger.removeClass('inactive');
+        danger.html(danger.text().replace('<i class="fa fa-exclamation text-danger rigth"></i>', ''));
+
+        if (!target.data('pode-locar'))
+        {
+            target.addClass('inactive').append('<i class="fa fa-exclamation text-danger rigth"></i>')
+
+            $('.alert.alert-danger').removeClass('hide');
+            $('.alert.alert-danger').addClass('show');
+            $('.alert.alert-danger .message').html("Locações excedidas para " + target.text());
+
+            setTimeout(() => {
+                $('.alert.alert-danger').addClass('hide');
+            }, 8000);
+
+            return false;
+        }
 
         $('.list-scroll.pessoas .list-group-item').map((index, it) => {
             let item = $(it)
