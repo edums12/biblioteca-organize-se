@@ -29,13 +29,13 @@
                             <div class="col-lg-3 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-codigo">Código</label>
-                                    <input type="text" id="input-codigo" name="input-codigo" class="form-control form-control-alternative" required>
+                                    <input type="text" id="input-codigo" name="input-codigo" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-codigo']?>" required>
                                 </div>
                             </div>
                             <div class="col-lg-9 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-nome">Nome completo</label>
-                                    <input type="text" id="input-nome" name="input-nome" class="form-control form-control-alternative" required>
+                                    <input type="text" id="input-nome" name="input-nome" class="form-control form-control-alternative" required value="<?= @Base::$flashdata['post']['input-nome']?>">
                                 </div>
                             </div>
                         </div>
@@ -43,13 +43,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-telefone">Número de telefone</label>
-                                    <input type="text" id="input-telefone" name="input-telefone" class="form-control form-control-alternative">
+                                    <input type="text" id="input-telefone" name="input-telefone" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-telefone']?>">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-email">E-mail</label>
-                                    <input type="email" id="input-email" name="input-email" class="form-control form-control-alternative">
+                                    <input type="email" id="input-email" name="input-email" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-email']?>">
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="textarea-observacao">Observação</label>
-                                    <textarea rows="4" class="form-control form-control-alternative" name="textarea-observacao" id="textarea-observacao"></textarea>
+                                    <textarea rows="4" class="form-control form-control-alternative" name="textarea-observacao" id="textarea-observacao"><?= @Base::$flashdata['post']['textarea-observacao']?></textarea>
                                 </div>
                             </div>
                         </div>

@@ -10,6 +10,15 @@ defined('BASEPATH') or exit("Não é possível acessar esse código diretamente!
 
 class Base extends CI_Model
 {
+    public static $flashdata;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        self::$flashdata = $this->session->flashdata();
+    }
+    
     const PER_PAGE = 25;
     const NUM_LINKS = 5;
 

@@ -37,15 +37,17 @@ class Pessoa extends CI_Model
         if (!$inativo)
             $where = ['inativo' => FALSE];
 
-        $this->db->where($where)->order_by('pessoa.nome');
+        $this->db->from(self::TABLENAME)->where($where)->order_by('pessoa.nome');
 
         if ($this->input->get('search'))
         {
             $this->db
+                ->group_start()
                 ->or_like('codigo', $this->input->get('search'))
                 ->or_like('nome', $this->input->get('search'))
                 ->or_like('email', $this->input->get('search'))
-                ->or_like('observacao', $this->input->get('search'));
+                ->or_like('observacao', $this->input->get('search'))
+                ->group_end();
         }
         
         if (!is_null($paginacao))
@@ -55,7 +57,7 @@ class Pessoa extends CI_Model
             $this->db->limit($paginacao['per_page'], $paginacao['offset']);
         }
 
-        $data['result'] = $this->db->get(self::TABLENAME)->result();
+        $data['result'] = $this->db->get()->result();
 
         return $data;
     }

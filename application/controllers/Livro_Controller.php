@@ -25,9 +25,9 @@ class Livro_Controller extends CI_Controller
 
     public function novo()
     {
-        $data['prateleiras'] = $this->Prateleira->carregar();
-        $data['categorias'] = $this->Categoria->get();
-        $data['escritores'] = $this->Escritor->get();
+        $data['prateleiras'] = json_encode($this->Prateleira->carregar());
+        $data['categorias'] = json_encode($this->Categoria->get());
+        $data['escritores'] = json_encode($this->Escritor->get());
 
         // Monta a tela de visualização
         $this->load->view('include/header');
@@ -51,14 +51,19 @@ class Livro_Controller extends CI_Controller
             $ano = $this->input->post('input-ano');
             $uf = $this->input->post('input-uf');
             $observacao = $this->input->post('textarea-observacao');
+            $quantidade_exemplares = $this->input->post('input-quantidade-exemplares');
     
-            $this->Livro->cadastrar($codigo, $titulo, $isbn, $escritor, $categoria, intval($id_prateleira), $edicao, intval($numero_paginas), $ano, $uf, $observacao);
+            $this->Livro->cadastrar($codigo, $titulo, $isbn, $escritor, $categoria, intval($id_prateleira), $edicao, intval($numero_paginas), $ano, $uf, $observacao, $quantidade_exemplares);
+
+            $this->session->set_flashdata('success', 'Livro cadastrado com sucesso');
 
             redirect(base_url('livros/listar'));
         }
         catch (Exception $e)
         {
             $this->session->set_flashdata('error', $e->getMessage());
+            $this->session->set_flashdata('post', $this->input->post());
+            
             redirect(base_url('livros/novo'));
         }
     }
@@ -77,13 +82,57 @@ class Livro_Controller extends CI_Controller
         
         $data['paginacao'] = $this->pagination->create_links();
 
-        
+        $data['total_registros'] = $paginacao['total_rows'];
 
         // Monta a tela de visualização
         $this->load->view('include/header');
         $this->load->view('include/navbar');
         $this->load->view('livro/listar', $data);
         $this->load->view('include/footer');
+    }
+
+    public function editar(int $id_livro)
+    {
+        $data['livro'] = $this->Livro->find($id_livro);
+
+        $data['prateleiras'] = json_encode($this->Prateleira->carregar());
+        $data['categorias'] = json_encode($this->Categoria->get());
+        $data['escritores'] = json_encode($this->Escritor->get());
+
+        // Monta a tela de visualização
+        $this->load->view('include/header');
+        $this->load->view('include/navbar');
+        $this->load->view('livro/editar', $data);
+        $this->load->view('include/footer');
+    }
+
+    public function atualizar()
+    {
+        try
+        {
+            $codigo = $this->input->post('input-codigo');
+            $titulo = $this->input->post('input-titulo');
+            $isbn = $this->input->post('input-isbn');
+            $escritor = $this->input->post('input-escritor');
+            $categoria = $this->input->post('input-categoria');
+            $id_prateleira = $this->input->post('input-id-prateleira');
+            $edicao = $this->input->post('input-edicao');
+            $numero_paginas = $this->input->post('input-numero-paginas');
+            $ano = $this->input->post('input-ano');
+            $uf = $this->input->post('input-uf');
+            $observacao = $this->input->post('textarea-observacao');
+    
+            $this->Livro->atualizar($codigo, $titulo, $isbn, $escritor, $categoria, intval($id_prateleira), $edicao, intval($numero_paginas), $ano, $uf, $observacao);
+
+            $this->session->set_flashdata('success', 'Livro atualizado com sucesso');
+
+            redirect(base_url('livros/listar'));
+        }
+        catch (Exception $e)
+        {
+            $this->session->set_flashdata('error', $e->getMessage());
+            redirect(base_url('livros/novo'));
+        }
     }
 
 }

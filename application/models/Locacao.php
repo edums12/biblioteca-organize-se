@@ -107,9 +107,29 @@ class Locacao extends CI_Model
             ->from(self::TABLENAME)
             ->join(Exemplar::TABLENAME, 'id_exemplar', 'inner')
             ->join(Livro::TABLENAME, 'id_livro', 'inner')
+            ->join(Escritor::TABLENAME, 'id_escritor', 'left')
+            ->join(Categoria::TABLENAME, 'id_categoria', 'left')
+            ->join(Prateleira::TABLENAME, 'id_prateleira', 'inner')
+            ->join(Corredor::TABLENAME, 'id_corredor', 'inner')
             ->join(Pessoa::TABLENAME, 'id_pessoa', 'inner')
             ->where('encerrada', FALSE)
             ->order_by('data_planejada_entrega', 'ASC');
+
+        if ($this->input->get('search'))
+        {
+            $this->db
+                ->group_start()
+                ->or_like('livro.codigo', $this->input->get('search'))
+                ->or_like('livro.titulo', $this->input->get('search'))
+                ->or_like('escritor.nome', $this->input->get('search'))
+                ->or_like('categoria.categoria', $this->input->get('search'))
+                ->or_like('prateleira.prateleira', $this->input->get('search'))
+                ->or_like('pessoa.codigo', $this->input->get('search'))
+                ->or_like('pessoa.nome', $this->input->get('search'))
+                ->or_like('locacao.observacao', $this->input->get('search'))
+                ->or_like('corredor.corredor', $this->input->get('search'))
+                ->group_end();
+        }
 
         if (!is_null($paginacao))
         {

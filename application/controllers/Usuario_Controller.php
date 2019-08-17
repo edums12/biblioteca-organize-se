@@ -72,7 +72,7 @@ class Usuario_Controller extends CI_Controller
             $observacao      = $this->input->post('textarea-observacao');
 
             // Validação
-            if ($senha !== $confirmar_senha) throw new Exception("A confirmação da senha não é idêntica a senha");
+            if ($senha !== $confirmar_senha) throw new Exception("As senhas não conferem");
 
             // Criar usuário no banco de dados
             $this->Usuario->criar_usuario($nome, $usuario, md5($senha), $tipo_acesso, $observacao);
@@ -85,6 +85,8 @@ class Usuario_Controller extends CI_Controller
         {
             // Redireciona a tela com aviso de erro
             $this->session->set_flashdata('error', $e->getMessage());
+            $this->session->set_flashdata('post', $this->input->post());
+
             redirect(base_url('usuarios/novo'));
         }
     }
@@ -103,7 +105,7 @@ class Usuario_Controller extends CI_Controller
             $observacao      = $this->input->post('textarea-observacao');
 
             // Validação
-            if ($senha !== $confirmar_senha) throw new Exception("A confirmação da senha não é idêntica a senha");
+            if ($senha !== $confirmar_senha) throw new Exception("As senhas não conferem");
 
             // Criar usuário no banco de dados
             $this->Usuario->atualizar_usuario($id, $nome, $usuario, md5($senha), $tipo_acesso, $observacao);

@@ -44,11 +44,13 @@ class Exemplar extends CI_Model
     {
         $this->validar($id_livro, $codigo, $status);
 
+        $livro = $this->Livro->find($id_livro);
+
         $this->db->insert(
             self::TABLENAME,
             [
                 'id_livro' => $id_livro,
-                'codigo' => $codigo,
+                'codigo' => "{$livro->codigo} - {$codigo}",
                 'status_exemplar' => $status,
                 'observacao' => $observacao
             ]

@@ -47,6 +47,7 @@ class Login_Controller extends CI_Controller
             catch (Exception $e)
             {
                 $this->session->set_flashdata('error', $e->getMessage());
+                $this->session->set_flashdata('post', $this->input->post());
                 
                 redirect(base_url('login'));
             }

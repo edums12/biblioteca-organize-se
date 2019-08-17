@@ -35,8 +35,9 @@ $route['corredores/ativar/(:num)'] = 'Corredor_Controller/ativar/$1';
 // Livros
 $route['livros/novo'] = 'Livro_Controller/novo';
 $route['livros/cadastrar'] = 'Livro_Controller/cadastrar';
-
 $route['livros/listar'] = 'Livro_Controller/listar';
+$route['livros/editar/(:num)'] = 'Livro_Controller/editar/$1';
+$route['livros/atualizar'] = 'Livro_Controller/atualizar';
 $route['livros/listar/(:num)'] = 'Livro_Controller/listar';
 
 // Exemplares
@@ -51,7 +52,6 @@ $route['pessoas/editar/(:num)'] = 'Pessoa_Controller/editar/$1';
 $route['pessoas/atualizar'] = 'Pessoa_Controller/atualizar';
 $route['pessoas/ativar/(:num)'] = 'Pessoa_Controller/ativar/$1';
 $route['pessoas/inativar/(:num)'] = 'Pessoa_Controller/inativar/$1';
-
 $route['pessoas/listar'] = 'Pessoa_Controller/listar';
 $route['pessoas/listar/(:num)'] = 'Pessoa_Controller/listar/$1';
 
@@ -63,7 +63,6 @@ $route['locacoes/nova'] = 'Locacao_Controller/nova';
 $route['locacoes/locar'] = 'Locacao_Controller/locar';
 $route['locacoes/encerrar/(:num)'] = 'Locacao_Controller/encerrar/$1';
 $route['locacoes/excluir/(:num)'] = 'Locacao_Controller/excluir/$1';
-
 $route['locacoes/listar'] = 'Locacao_Controller/listar';
 $route['locacoes/listar/(:num)'] = 'Locacao_Controller/listar';
 

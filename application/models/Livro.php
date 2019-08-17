@@ -38,11 +38,15 @@ class Livro extends CI_Model
         $this->load->model('Categoria');
         $this->load->model('Prateleira');
         $this->load->model('Corredor');
+        $this->load->model('Exemplar');
     }
 
-    public function cadastrar(string $codigo, string $titulo, string $isbn, string $escritor, string $categoria, int $id_prateleira, string $edicao, int $numero_paginas, string $ano, string $uf, string $observacao) : int
+    public function cadastrar(string $codigo, string $titulo, string $isbn, string $escritor, string $categoria, int $id_prateleira, string $edicao, int $numero_paginas, string $ano, string $uf, string $observacao, int $quantidade_exemplares) : int
     {
         $this->validar($codigo, $titulo, $ano, $uf, $id_prateleira);
+
+        if ($quantidade_exemplares < 1)
+            throw new Exception("Quantidade de exemplares deve ser maior que zero");
 
         if (empty($escritor)) 
             $escritor = NULL;
@@ -56,8 +60,8 @@ class Livro extends CI_Model
                 'codigo' => $codigo,
                 'titulo' => $titulo,
                 'isbn' => $isbn,
-                'id_escritor' => $this->Escritor->cadastrar_ou_buscar($escritor),
-                'id_categoria' => $this->Categoria->cadastrar_ou_buscar($categoria),
+                'id_escritor' => $escritor ? $this->Escritor->cadastrar_ou_buscar($escritor) : NULL,
+                'id_categoria' => $categoria ? $this->Categoria->cadastrar_ou_buscar($categoria) : NULL,
                 'id_prateleira' => $id_prateleira,
                 'edicao' => $edicao,
                 'numero_paginas' => $numero_paginas,
@@ -67,7 +71,42 @@ class Livro extends CI_Model
             ]
         );
 
-        return $this->db->insert_id();
+        $id = $this->db->insert_id();
+
+        for($i = 1; $i <= $quantidade_exemplares; $i++)
+            $this->Exemplar->cadastrar($id, $i, Exemplar::STATUS_LIVRE, 'Cadastrado automaticamente');
+
+        return $id;
+    }
+
+    public function atualizar(string $codigo, string $titulo, string $isbn, string $escritor, string $categoria, int $id_prateleira, string $edicao, int $numero_paginas, string $ano, string $uf, string $observacao)
+    {
+        $this->validar($codigo, $titulo, $ano, $uf, $id_prateleira);
+
+        if (empty($escritor)) 
+            $escritor = NULL;
+
+        if (empty($categoria))
+            $categoria = NULL;
+
+        $this->db->update(
+            self::TABLENAME,
+            [
+                'titulo' => $titulo,
+                'isbn' => $isbn,
+                'id_escritor' => $escritor ? $this->Escritor->cadastrar_ou_buscar($escritor) : NULL,
+                'id_categoria' => $categoria ? $this->Categoria->cadastrar_ou_buscar($categoria) : NULL,
+                'id_prateleira' => $id_prateleira,
+                'edicao' => $edicao,
+                'numero_paginas' => $numero_paginas,
+                'ano' => $ano,
+                'uf' => strtoupper($uf),
+                'observacao' => $observacao,
+            ],
+            [
+                'codigo' => $codigo
+            ]
+        );
     }
 
     public function get(array &$paginacao = NULL)
@@ -103,8 +142,8 @@ class Livro extends CI_Model
                 (SELECT COUNT(*) FROM exemplar WHERE id_livro = livro.id_livro) AS qtd_exemplares
              ')
             ->from(self::TABLENAME)
-            ->join(Escritor::TABLENAME, 'id_escritor', 'inner')
-            ->join(Categoria::TABLENAME, 'id_categoria', 'inner')
+            ->join(Escritor::TABLENAME, 'id_escritor', 'left')
+            ->join(Categoria::TABLENAME, 'id_categoria', 'left')
             ->join(Prateleira::TABLENAME, 'id_prateleira', 'inner')
             ->join(Corredor::TABLENAME, 'id_corredor', 'inner')
             ->order_by('livro.titulo', 'ASC');
@@ -112,6 +151,7 @@ class Livro extends CI_Model
         if ($this->input->get('search'))
         {
             $this->db
+                ->group_start()
                 ->or_like('livro.codigo', $this->input->get('search'))
                 ->or_like('livro.titulo', $this->input->get('search'))
                 ->or_like('livro.isbn', $this->input->get('search'))
@@ -119,7 +159,8 @@ class Livro extends CI_Model
                 ->or_like('escritor.nome', $this->input->get('search'))
                 ->or_like('categoria.categoria', $this->input->get('search'))
                 ->or_like('prateleira.prateleira', $this->input->get('search'))
-                ->or_like('corredor.corredor', $this->input->get('search'));
+                ->or_like('corredor.corredor', $this->input->get('search'))
+                ->group_end();
         }
 
         if (!is_null($paginacao))
@@ -146,6 +187,7 @@ class Livro extends CI_Model
                 livro.edicao,
                 livro.ano,
                 livro.uf,
+                livro.numero_paginas,
                 livro.observacao,
                 livro.inativo,
                 livro.criado_em,
@@ -165,8 +207,8 @@ class Livro extends CI_Model
                 corredor.corredor || \' - \' || prateleira.prateleira AS corredor_prateleira
              ')
             ->from(self::TABLENAME)
-            ->join(Escritor::TABLENAME, 'id_escritor', 'inner')
-            ->join(Categoria::TABLENAME, 'id_categoria', 'inner')
+            ->join(Escritor::TABLENAME, 'id_escritor', 'left')
+            ->join(Categoria::TABLENAME, 'id_categoria', 'left')
             ->join(Prateleira::TABLENAME, 'id_prateleira', 'inner')
             ->join(Corredor::TABLENAME, 'id_corredor', 'inner')
             ->where('id_livro', $id)

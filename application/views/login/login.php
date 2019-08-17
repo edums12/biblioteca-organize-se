@@ -20,7 +20,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
                                     </div>
-                                    <input class="form-control" name="acesso" placeholder="Usuário" type="" minlength="3" required autocorrect="off" autocapitalize="none" autofocus>
+                                    <input class="form-control" name="acesso" placeholder="Usuário" type="text" minlength="3" required autocorrect="off" autocapitalize="none" autofocus value="<?= @Base::$flashdata['post']['acesso'] ?>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -31,12 +31,6 @@
                                     <input class="form-control" name="senha" placeholder="Senha" type="password" minlength="3" required autocorrect="off" autocapitalize="none">
                                 </div>
                             </div>
-                            <!-- <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                <label class="custom-control-label" for=" customCheckLogin">
-                                    <span class="text-muted">Mantenha-me conectado</span>
-                                </label>
-                            </div> -->
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary mt-4" value="Entrar" />
                             </div>

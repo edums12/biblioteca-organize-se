@@ -29,13 +29,13 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-nome">Nome</label>
-                                    <input type="text" id="input-nome" name="input-nome" class="form-control form-control-alternative" required>
+                                    <input type="text" id="input-nome" name="input-nome" class="form-control form-control-alternative" required value="<?= @Base::$flashdata['post']['input-nome']?>">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-usuario">Usuário de acesso</label>
-                                    <input type="text" id="input-usuario" name="input-usuario" class="form-control form-control-alternative" required minlength="3">
+                                    <input type="text" id="input-usuario" name="input-usuario" class="form-control form-control-alternative" required minlength="3" value="<?= @Base::$flashdata['post']['input-usuario']?>">
                                 </div>
                             </div>
                         </div>
@@ -57,13 +57,13 @@
                             <div class="col-lg-12">
                                 <label class="form-control-label">Tipo de acesso</label>
                                 <div class="custom-control custom-control-alternative custom-radio">
-                                    <input class="custom-control-input" id="acesso-administrador" name="input-radio-acesso" type="radio" value="1">
+                                    <input class="custom-control-input" id="acesso-administrador" name="input-radio-acesso" type="radio" value="1" <?= @Base::$flashdata['post']['input-radio-acesso'] == '1' ? 'checked' : ''?>>
                                     <label class="custom-control-label" for="acesso-administrador" required>
                                         <span class="text-muted">Administrador</span>
                                     </label>
                                 </div>
                                 <div class="custom-control custom-control-alternative custom-radio mt-2">
-                                    <input class="custom-control-input" id="acesso-bibliotecario" name="input-radio-acesso" type="radio" value="2">
+                                    <input class="custom-control-input" id="acesso-bibliotecario" name="input-radio-acesso" type="radio" value="2" <?= @Base::$flashdata['post']['input-radio-acesso'] == '2' ? 'checked' : ''?>>
                                     <label class="custom-control-label" for="acesso-bibliotecario" required>
                                         <span class="text-muted">Bibliotecário</span>
                                     </label>
@@ -74,7 +74,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="textarea-observacao">Observação</label>
-                                    <textarea rows="4" class="form-control form-control-alternative" name="textarea-observacao" id="textarea-observacao"></textarea>
+                                    <textarea rows="4" class="form-control form-control-alternative" name="textarea-observacao" id="textarea-observacao"><?= @Base::$flashdata['post']['textarea-observacao']?></textarea>
                                 </div>
                             </div>
                         </div>

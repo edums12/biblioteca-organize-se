@@ -44,6 +44,11 @@
                         <i class="ni ni-badge text-blue"></i> Pessoas
                     </a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link <?= $this->uri->segment(1) == 'relatorios' ? 'active' : ''?>" href="<?= base_url('relatorios/painel') ?>">
+                        <i class="ni ni-chart-bar-32 text-blue"></i> Relatórios
+                    </a>
+                </li> -->
                 <?php if (in_array($this->session->userdata('tipo_acesso'), [Usuario::ADMIN])) : ?>
                     <li class="nav-item">
                         <a class="nav-link <?= $this->uri->segment(1) == 'usuarios' ? 'active' : ''?>" href="<?= base_url('usuarios/listar') ?>">

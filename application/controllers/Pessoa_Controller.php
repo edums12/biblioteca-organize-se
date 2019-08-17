@@ -35,6 +35,8 @@ class Pessoa_Controller extends CI_Controller
         $this->pagination->initialize($paginacao);
         
         $data['paginacao'] = $this->pagination->create_links();
+
+        $data['total_registros'] = $paginacao['total_rows'];
         
         // Monta a tela de visualização
         $this->load->view('include/header');
@@ -70,6 +72,7 @@ class Pessoa_Controller extends CI_Controller
         catch (Exception $ex)
         {
             $this->session->set_flashdata('error', $ex->getMessage());
+            $this->session->set_flashdata('post', $this->input->post());
             
             redirect(base_url('pessoas/novo'));
         }

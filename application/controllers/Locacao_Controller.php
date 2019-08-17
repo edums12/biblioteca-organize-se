@@ -38,6 +38,8 @@ class Locacao_Controller extends CI_Controller
         
         $data['paginacao'] = $this->pagination->create_links();
 
+        $data['total_registros'] = $paginacao['total_rows'];
+
         $this->load->view('include/header');
         $this->load->view('include/navbar');
         $this->load->view('locacao/listar', $data);

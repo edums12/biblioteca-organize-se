@@ -37,9 +37,7 @@ class Exemplar_Controller extends CI_Controller
     {
         try
         {
-            $livro = $this->Livro->find($id_livro);
-
-            $codigo = $livro->codigo . "-" . $this->input->post('input-codigo');
+            $codigo = $this->input->post('input-codigo');
             $status = $this->input->post('select-status');
             $observacao = $this->input->post('textarea-observacao');
 
