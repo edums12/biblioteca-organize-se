@@ -195,6 +195,7 @@
             </div>
 
             <div class="modal-footer">
+                <a href="" class="btn btn-link limpar-categorias"><i class="fa fa-times" aria-hidden="true"></i> Limpar</a>
                 <button type="button" class="btn btn-link ml-auto" data-toggle="modal" data-target="#modal-adicionar-categoria"><i class="fa fa-plus" aria-hidden="true"></i> Nova categoria</button>
             </div>
 
@@ -257,6 +258,7 @@
             </div>
 
             <div class="modal-footer">
+                <a href="" class="btn btn-link limpar-escritores"><i class="fa fa-times" aria-hidden="true"></i> Limpar</a>
                 <button type="button" class="btn btn-link ml-auto" data-toggle="modal" data-target="#modal-adicionar-escritor"><i class="fa fa-plus" aria-hidden="true"></i> Novo escritor</button>
             </div>
 
@@ -347,6 +349,20 @@
 
             modalNovoEscritor.modal('hide')
             modalEscritor.modal('hide')
+        })
+
+        $('.limpar-escritores').click(function(e) {
+            e.preventDefault()
+            
+            $('#input-escritor').val('')
+            $('#modal-escritor').modal('hide')
+        })
+
+        $('.limpar-categorias').click(function(e) {
+            e.preventDefault()
+            
+            $('#input-categoria').val('')
+            $('#modal-categoria').modal('hide')
         })
 
         filtrarPrateleiras(null)
