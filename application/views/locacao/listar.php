@@ -19,11 +19,11 @@
                 <div class="card-header border-0">
                     <form method="GET">
                         <div class="row align-items-center">
-                            <div class="col-lg-3 col-sm-12">
+                            <div class="col-lg-4 col-sm-12">
                                 <h3 class="mb-0">Locações registradas</h3>
                                 <small>Quantidade total de locações exibidas: <?= $total_registros ?></small>
                             </div>
-                            <div class="col-lg-5 col-sm-12 offset-lg-4">
+                            <div class="col-lg-5 col-sm-12 offset-lg-3">
                                 <div class="form-group mb-0">
                                     <input type="search" name="search" class="form-control form-control-alternative" placeholder="Pesquisar..." value="<?= $this->input->get('search')?>">
                                 </div>

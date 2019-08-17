@@ -34,20 +34,20 @@
   <script>
     $(document).ready(function(e){
 
-      <?php if($this->session->flashdata('error')):?>
+      <?php if(@Base::$flashdata['error']):?>
         $('.alert.alert-danger').removeClass('hide');
         $('.alert.alert-danger').addClass('show');
-        $('.alert.alert-danger .message').html("<?= $this->session->flashdata('error')?>");
+        $('.alert.alert-danger .message').html("<?= @Base::$flashdata['error']?>");
 
         setTimeout(() => {
           $('.alert.alert-danger').fadeOut('slow');
         }, 8000);
       <?php endif;?>
 
-      <?php if($this->session->flashdata('success')):?>
+      <?php if(@Base::$flashdata['success']):?>
         $('.alert.alert-success').removeClass('hide');
         $('.alert.alert-success').addClass('show');
-        $('.alert.alert-success .message').html("<?= $this->session->flashdata('success')?>");
+        $('.alert.alert-success .message').html("<?= @Base::$flashdata['success']?>");
 
         setTimeout(() => {
           $('.alert.alert-success').fadeOut('slow');
@@ -61,6 +61,12 @@
 
           alert.removeClass('show');
           alert.addClass('hide');
+        });
+
+        $('a.print-table').click(function(e){
+          e.preventDefault();
+
+          window.print();
         });
     });
   </script>

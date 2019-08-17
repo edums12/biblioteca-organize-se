@@ -89,3 +89,34 @@ input.invalid {
     padding: .2rem;
     border-radius: 100%;
 }
+
+/* Printable */
+
+@media print {
+    body[class*='bg'] {
+        background-color: white !important;
+    }
+    body * {
+        visibility: hidden;
+        color: black;
+    }
+    body .main-content {
+        margin-top: 0 !important;
+        margin-left: 0 !important;
+    }
+    body .main-content .container-fluid {
+        padding: 0 !important;
+    }
+    body .header {
+        display: none !important;
+    }
+    [class *='mb-'], [class *='mt-'] {
+        margin: 0 !important;
+    }
+    .title-print-table {
+        visibility: visible !important;
+    }
+    table, table * {
+        visibility: visible !important;
+    }
+}

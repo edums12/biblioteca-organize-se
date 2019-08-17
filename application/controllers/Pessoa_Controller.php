@@ -1,4 +1,3 @@
-
 <?php
 
 defined('BASEPATH') or exit("Não é possível acessar esse código diretamente!");

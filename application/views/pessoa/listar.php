@@ -57,8 +57,8 @@
                                     <td>
                                         <?=
                                             $pessoa->inativo
-                                                ? "<span class=\"badge badge-dot mr-4\"><i class=\"bg-danger\"></i>Inativo</span>"
-                                                : "<span class=\"badge badge-dot mr-4\"><i class=\"bg-success\"></i>Ativo</span>"
+                                                ? "<span class=\"badge badge-pill badge-danger text-uppercase\">Inativo</span>"
+                                                : "<span class=\"badge badge-pill badge-success text-uppercase\">Ativo</span>"
                                         ?>
                                     </td>
                                     <td class="text-right">

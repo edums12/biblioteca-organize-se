@@ -66,10 +66,6 @@ $route['locacoes/excluir/(:num)'] = 'Locacao_Controller/excluir/$1';
 $route['locacoes/listar'] = 'Locacao_Controller/listar';
 $route['locacoes/listar/(:num)'] = 'Locacao_Controller/listar';
 
-
-/* ------ API ------ */
-
-// Pessoa
-$route['api/pessoas/(:any)'] = 'Pessoa_API_Controller/index_get/$1';
-$route['api/locacoes/(:num)'] = 'Locacao_API_Controller/index_get/$1';
-$route['api/reservas'] = 'Reserva_API_Controller/index_get/';
+// Relatórios
+$route['relatorios/painel'] = "Relatorio_Controller/index";
+$route['relatorios/exemplares-disponiveis'] = "Relatorio_Controller/exemplares_disponiveis";

@@ -41,15 +41,15 @@
                                 <td>
                                     <?php switch($exemplar->status_exemplar){
                                         case Exemplar::STATUS_LIVRE:
-                                            echo "<span class=\"badge badge-dot mr-4\"><i class=\"bg-success\"></i>". Exemplar::STATUS_LIVRE ."</span>";
+                                            echo "<span class=\"badge badge-pill badge-success text-uppercase\">".Exemplar::STATUS_LIVRE."</span>";
                                             break;
 
                                         case Exemplar::STATUS_LOCADO:
-                                            echo "<span class=\"badge badge-dot mr-4\"><i class=\"bg-warning\"></i>". Exemplar::STATUS_LOCADO ."</span>";
+                                            echo "<span class=\"badge badge-pill badge-warning text-uppercase\">".Exemplar::STATUS_LOCADO."</span>";
                                             break;
 
                                         case Exemplar::STATUS_PERDIDO:
-                                            echo "<span class=\"badge badge-dot mr-4\"><i class=\"bg-danger\"></i>". Exemplar::STATUS_PERDIDO ."</span>";
+                                            echo "<span class=\"badge badge-pill badge-danger text-uppercase\">".Exemplar::STATUS_PERDIDO."</span>";
                                             break;
                                     } ?>
                                 </td>
