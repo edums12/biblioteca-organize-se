@@ -25,7 +25,9 @@ class Pessoa_Controller extends CI_Controller
     {
         $paginacao = Base::configuracao_paginacao('pessoas/listar', 3);
 
-        $result = $this->Pessoa->get(TRUE, $paginacao);
+        $configuracoes = $this->Configuracao->get_config_ajustes();
+
+        $result = $this->Pessoa->get($configuracoes->exibir_pessoas_inativas, $paginacao);
         
         $data['pessoas'] = $result['result'];
 

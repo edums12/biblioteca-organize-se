@@ -115,6 +115,10 @@ CREATE TABLE config_locacao(
 	numero_maximo_locacoes INTEGER CHECK(numero_maximo_locacoes >= 0) NOT NULL
 );
 
+CREATE TABLE config_ajustes(
+	exibir_pessoas_inativas BOOLEAN NOT NULL
+);
+
 CREATE OR REPLACE FUNCTION get_config_dias_prazo_retirada() 
 RETURNS int LANGUAGE SQL AS
 $$ SELECT dias_prazo_retirada FROM config_locacao; $$;
@@ -130,3 +134,4 @@ CREATE TABLE reserva(
 INSERT INTO usuario (nome, acesso, senha, tipo_acesso) VALUES ('Administrador', 'admin', '200820e3227815ed1756a6b531e7e0d2', 'administrador');
 
 INSERT INTO config_locacao(dias_para_locacao, valor_multa_por_dia, dias_prazo_retirada, numero_maximo_locacoes) VALUES (15, 0.10, 3, 3);
+INSERT INTO config_ajustes(exibir_pessoas_inativas) VALUES (false);

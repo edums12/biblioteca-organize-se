@@ -66,6 +66,11 @@
             <!-- Navigation -->
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-configuracao-ajustes">
+                        <i class="ni ni-settings"></i> Ajustes
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-configuracao-locacoes">
                         <i class="ni ni-money-coins"></i> Locações
                     </a>
@@ -93,3 +98,4 @@
 <div class="main-content">
 
 <?php $this->load->view('configuracoes/locacoes') ?>
+<?php $this->load->view('configuracoes/ajustes') ?>

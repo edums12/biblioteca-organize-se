@@ -39,6 +39,27 @@ class Configuracao_Controller extends CI_Controller
         {
             redirect(base_url($http_referer));
         }
+    }
+
+    public function atualizar_configuracao_ajustes()
+    {
+        $http_referer = str_replace($this->config->item('base_url'), '', $_SERVER['HTTP_REFERER']);
+
+        try
+        {
+            $exibir_pessoas_inativas = $this->input->post('checkbox-exibir-pessoas-inativas') ? true : false;
+
+            $this->Configuracao->set_config_ajustes($exibir_pessoas_inativas);
+            $this->session->set_flashdata('success', 'Configuração salva com sucesso');
+        }
+        catch (Exception $e)
+        {
+            $this->session->set_flashdata('error', $e->getMessage());
+        }
+        finally
+        {
+            redirect(base_url($http_referer));
+        }
 
     }
 }

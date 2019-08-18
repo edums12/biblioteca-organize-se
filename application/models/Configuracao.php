@@ -11,6 +11,7 @@ defined('BASEPATH') or exit("Não é possível acessar esse código diretamente!
 class Configuracao extends CI_Model
 {
     const TABLENAME_CONFIG_LOCACOES = "config_locacao";
+    const TABLENAME_CONFIG_AJUSTES = "config_ajustes";
 
     public function __construct()
     {
@@ -40,4 +41,21 @@ class Configuracao extends CI_Model
     {
         return $this->db->get(self::TABLENAME_CONFIG_LOCACOES)->row();
     }
+
+    public function set_config_ajustes(bool $exibir_pessoas_inativas)
+    {
+        $this->db->update(
+            self::TABLENAME_CONFIG_AJUSTES, 
+            [
+                'exibir_pessoas_inativas' => $exibir_pessoas_inativas
+            ]
+        );
+    }
+
+    public function get_config_ajustes()
+    {
+        return $this->db->get(self::TABLENAME_CONFIG_AJUSTES)->row();
+    }
+
+    
 }

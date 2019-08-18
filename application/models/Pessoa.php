@@ -66,6 +66,11 @@ class Pessoa extends CI_Model
     {
         $this->validar($nome);
 
+        $pessoa = $this->db->get_where(self::TABLENAME, ['codigo' => $codigo])->row();
+
+        if ($pessoa)
+            throw new Exception("Código já usado para {$pessoa->nome}");
+
         $this->db->insert(
             self::TABLENAME,
             [

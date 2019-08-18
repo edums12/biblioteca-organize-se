@@ -54,6 +54,11 @@ class Livro extends CI_Model
         if (empty($categoria))
             $categoria = NULL;
 
+        $livro = $this->db->get_where(self::TABLENAME, ['codigo' => $codigo])->row();
+
+        if ($livro)
+            throw new Exception("Código já usado para o livro {$livro->titulo}");
+
         $this->db->insert(
             self::TABLENAME,
             [

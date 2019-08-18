@@ -57,6 +57,7 @@ $route['pessoas/listar/(:num)'] = 'Pessoa_Controller/listar/$1';
 
 // Configurações
 $route['configuracao/locacao'] = 'Configuracao_Controller/atualizar_configuracao_locacao';
+$route['configuracao/ajustes'] = 'Configuracao_Controller/atualizar_configuracao_ajustes';
 
 // Locação
 $route['locacoes/nova'] = 'Locacao_Controller/nova';
