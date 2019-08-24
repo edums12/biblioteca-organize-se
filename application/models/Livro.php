@@ -196,6 +196,7 @@ class Livro extends CI_Model
                 livro.observacao,
                 livro.inativo,
                 livro.criado_em,
+                COUNT(exemplar.id_exemplar) OVER() AS quantidade_exemplares,
 
                 escritor.id_escritor,
                 escritor.nome as escritor,
@@ -216,6 +217,7 @@ class Livro extends CI_Model
             ->join(Categoria::TABLENAME, 'id_categoria', 'left')
             ->join(Prateleira::TABLENAME, 'id_prateleira', 'inner')
             ->join(Corredor::TABLENAME, 'id_corredor', 'inner')
+            ->join(Exemplar::TABLENAME, 'id_livro', 'left')
             ->where('id_livro', $id)
             ->get()
             ->row();
