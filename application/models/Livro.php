@@ -43,10 +43,7 @@ class Livro extends CI_Model
 
     public function cadastrar(string $codigo, string $titulo, string $isbn, string $escritor, string $categoria, int $id_prateleira, string $edicao, int $numero_paginas, string $ano, string $uf, string $observacao, int $quantidade_exemplares) : int
     {
-        $this->validar($codigo, $titulo, $ano, $uf, $id_prateleira);
-
-        if ($quantidade_exemplares < 1)
-            throw new Exception("Quantidade de exemplares deve ser maior que zero");
+        $this->validar($codigo, $titulo, $ano, $uf, $id_prateleira, $quantidade_exemplares);
 
         if (empty($escritor)) 
             $escritor = NULL;
@@ -84,9 +81,9 @@ class Livro extends CI_Model
         return $id;
     }
 
-    public function atualizar(string $codigo, string $titulo, string $isbn, string $escritor, string $categoria, int $id_prateleira, string $edicao, int $numero_paginas, string $ano, string $uf, string $observacao)
+    public function atualizar(int $id, string $codigo, string $titulo, string $isbn, string $escritor, string $categoria, int $id_prateleira, string $edicao, int $numero_paginas, string $ano, string $uf, string $observacao, int $quantidade_exemplares)
     {
-        $this->validar($codigo, $titulo, $ano, $uf, $id_prateleira);
+        $this->validar($codigo, $titulo, $ano, $uf, $id_prateleira, $quantidade_exemplares);
 
         if (empty($escritor)) 
             $escritor = NULL;
@@ -94,9 +91,15 @@ class Livro extends CI_Model
         if (empty($categoria))
             $categoria = NULL;
 
+        $livro = $this->db->where('codigo', $codigo)->where_not_in('id_livro', $id)->get(self::TABLENAME)->row();
+
+        if ($livro)
+            throw new Exception("Código já usado para o livro {$livro->titulo}");
+
         $this->db->update(
             self::TABLENAME,
             [
+                'codigo' => $codigo,
                 'titulo' => $titulo,
                 'isbn' => $isbn,
                 'id_escritor' => $escritor ? $this->Escritor->cadastrar_ou_buscar($escritor) : NULL,
@@ -109,7 +112,7 @@ class Livro extends CI_Model
                 'observacao' => $observacao,
             ],
             [
-                'codigo' => $codigo
+                'id_livro' => $id
             ]
         );
     }
@@ -242,13 +245,14 @@ class Livro extends CI_Model
                 ->result();
     }
 
-    private function validar(string $codigo, string $titulo, string $ano, string $uf, int $id_prateleira) : void
+    private function validar(string $codigo, string $titulo, string $ano, string $uf, int $id_prateleira, int $quantidade_exemplares) : void
     {
         if (strlen(trim($codigo)) == 0) throw new Exception("Código não informado");
         if (strlen(trim($titulo)) == 0) throw new Exception("Título não informado");
         if (!empty($ano) && strlen($ano) != 4) throw new Exception("Ano deve ter 4 caracteres");
         if (!empty($uf) && strlen($uf) != 2) throw new Exception("UF deve ter 2 caracteres");
         if (empty($id_prateleira) || $id_prateleira <= 0) throw new Exception("Prateleira não informada");
+        if ($quantidade_exemplares < 1) throw new Exception("Quantidade de exemplares deve ser maior que zero");
     }
 
 }

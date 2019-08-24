@@ -90,6 +90,10 @@ input.invalid {
     border-radius: 100%;
 }
 
+.table td, .table th {
+    white-space: normal !important;
+}
+
 /* Printable */
 
 @media print {

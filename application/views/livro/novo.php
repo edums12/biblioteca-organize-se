@@ -175,7 +175,7 @@
 
 <!-- CATEGORIA -->
 <div class="modal fade" id="modal-categoria" tabindex="-1" role="dialog" aria-labelledby="modal-categoria" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -238,7 +238,7 @@
 
 <!-- ESCRITOR -->
 <div class="modal fade" id="modal-escritor" tabindex="-1" role="dialog" aria-labelledby="modal-escritor" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
 
             <div class="modal-header">

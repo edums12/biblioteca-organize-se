@@ -24,30 +24,31 @@
                 </div>
                 <div class="card-body">
                     <form action="<?= base_url('livros/atualizar') ?>" method="POST">
+                        <input type="hidden" name="input-id" value="<?= $livro->id_livro?>">
                         <h6 class="heading-small text-muted mb-4">Informações</h6>
                         <div class="row">
                             <div class="col-lg-2 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-codigo">Código</label>
-                                    <input type="text" id="input-codigo" name="input-codigo" class="form-control form-control-alternative" value="<?= $livro->codigo?>" readonly>
+                                    <input type="text" id="input-codigo" name="input-codigo" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-codigo'] ?? $livro->codigo?>" required>
                                 </div>
                             </div>
                             <div class="col-lg-5 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-titulo">Título</label>
-                                    <input type="text" id="input-titulo" name="input-titulo" class="form-control form-control-alternative" value="<?= $livro->titulo?>" required>
+                                    <input type="text" id="input-titulo" name="input-titulo" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-titulo'] ?? $livro->titulo?>" required>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-isbn">ISBN</label>
-                                    <input type="text" id="input-isbn" name="input-isbn" class="form-control form-control-alternative" value="<?= $livro->isbn?>">
+                                    <input type="text" id="input-isbn" name="input-isbn" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-ISBN'] ?? $livro->isbn?>">
                                 </div>
                             </div>
                             <div class="col-lg-1 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-quantidade-exemplares">Qtd</label>
-                                    <input type="number" id="input-quantidade-exemplares" name="input-quantidade-exemplares" class="form-control form-control-alternative" min="1" value="<?= $livro->quantidade_exemplares?>" readonly>
+                                    <input type="number" id="input-quantidade-exemplares" name="input-quantidade-exemplares" class="form-control form-control-alternative" min="1" value="<?= @Base::$flashdata['post']['input-quantidade-exemplares'] ?? $livro->quantidade_exemplares?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -56,22 +57,22 @@
                                 <div class="form-group form-group-icon">
                                     <label class="form-control-label" for="input-escritor">Escritor</label>
                                     <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" id="input-escritor" name="input-escritor" class="form-control form-control-alternative" data-toggle="modal" data-target="#modal-escritor" readonly value="<?= $livro->escritor?>">
+                                    <input type="text" id="input-escritor" name="input-escritor" class="form-control form-control-alternative" data-toggle="modal" data-target="#modal-escritor" readonly value="<?= @Base::$flashdata['post']['input-escritor'] ?? $livro->escritor?>">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-12">
                                 <div class="form-group form-group-icon">
                                     <label class="form-control-label" for="input-categoria">Categoria</label>
                                     <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" id="input-categoria" name="input-categoria" class="form-control form-control-alternative" data-toggle="modal" data-target="#modal-categoria" readonly value="<?= $livro->categoria?>">
+                                    <input type="text" id="input-categoria" name="input-categoria" class="form-control form-control-alternative" data-toggle="modal" data-target="#modal-categoria" readonly value="<?= @Base::$flashdata['post']['input-categoria'] ?? $livro->categoria?>">
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-12">
                                 <div class="form-group form-group-icon">
                                     <label class="form-control-label" for="input-prateleira">Prateleira</label>
                                     <span class="input-group-text"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                    <input type="text" id="input-prateleira" name="input-prateleira" class="form-control form-control-alternative" data-toggle="modal" data-target="#modal-prateleira" readonly required value="<?= $livro->corredor_prateleira?>">
-                                    <input type="hidden" name="input-id-prateleira" id="input-id-prateleira"  value="<?= $livro->id_prateleira?>">
+                                    <input type="text" id="input-prateleira" name="input-prateleira" class="form-control form-control-alternative" data-toggle="modal" data-target="#modal-prateleira" readonly required value="<?= @Base::$flashdata['post']['input-prateleira'] ?? $livro->corredor_prateleira?>">
+                                    <input type="hidden" name="input-id-prateleira" id="input-id-prateleira"  value="<?= @Base::$flashdata['post']['input-id-prateleira'] ?? $livro->id_prateleira?>">
                                 </div>
                             </div>
                         </div>
@@ -79,19 +80,19 @@
                             <div class="col-lg-3 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-edicao">Edição</label>
-                                    <input type="text" id="input-edicao" name="input-edicao" class="form-control form-control-alternative" value="<?= $livro->edicao?>">
+                                    <input type="text" id="input-edicao" name="input-edicao" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-edicao'] ?? $livro->edicao?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-numero-paginas">Nº de páginas</label>
-                                    <input type="number" id="input-numero-paginas" name="input-numero-paginas" class="form-control form-control-alternative" value="<?= $livro->numero_paginas?>">
+                                    <input type="number" id="input-numero-paginas" name="input-numero-paginas" class="form-control form-control-alternative" value="<?= @Base::$flashdata['post']['input-numero-paginas'] ?? $livro->numero_paginas?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-ano">Ano</label>
-                                    <input type="number" id="input-ano" name="input-ano" class="form-control form-control-alternative" minlength="4" maxlength="4" value="<?= $livro->ano?>">
+                                    <input type="number" id="input-ano" name="input-ano" class="form-control form-control-alternative" minlength="4" maxlength="4" value="<?= @Base::$flashdata['post']['input-ano'] ?? $livro->ano?>">
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-12">
@@ -99,33 +100,33 @@
                                     <label class="form-control-label" for="input-uf">UF</label>
                                     <select class="form-control form-control-alternative" name="input-uf" id="input-uf">
                                         <option value="">Selecione o estado</option>
-                                        <option value="AC" <?= $livro->uf == 'AC' ? 'selected' : ''?>>AC - Acre</option>
-                                        <option value="AL" <?= $livro->uf == 'AL' ? 'selected' : ''?>>AL - Alagoas</option>
-                                        <option value="AP" <?= $livro->uf == 'AP' ? 'selected' : ''?>>AP - Amapá</option>
-                                        <option value="AM" <?= $livro->uf == 'AM' ? 'selected' : ''?>>AM - Amazonas</option>
-                                        <option value="BA" <?= $livro->uf == 'BA' ? 'selected' : ''?>>BA - Bahia</option>
-                                        <option value="CE" <?= $livro->uf == 'CE' ? 'selected' : ''?>>CE - Ceará</option>
-                                        <option value="DF" <?= $livro->uf == 'DF' ? 'selected' : ''?>>DF - Distrito Federal</option>
-                                        <option value="ES" <?= $livro->uf == 'ES' ? 'selected' : ''?>>ES - Espirito Santo</option>
-                                        <option value="GO" <?= $livro->uf == 'GO' ? 'selected' : ''?>>GO - Goiás</option>
-                                        <option value="MA" <?= $livro->uf == 'MA' ? 'selected' : ''?>>MA - Maranhão</option>
-                                        <option value="MS" <?= $livro->uf == 'MS' ? 'selected' : ''?>>MS - Mato Grosso do Sul</option>
-                                        <option value="MT" <?= $livro->uf == 'MT' ? 'selected' : ''?>>MT - Mato Grosso</option>
-                                        <option value="MG" <?= $livro->uf == 'MG' ? 'selected' : ''?>>MG - Minas Gerais</option>
-                                        <option value="PA" <?= $livro->uf == 'PA' ? 'selected' : ''?>>PA - Pará</option>
-                                        <option value="PB" <?= $livro->uf == 'PB' ? 'selected' : ''?>>PB - Paraíba</option>
-                                        <option value="PR" <?= $livro->uf == 'PR' ? 'selected' : ''?>>PR - Paraná</option>
-                                        <option value="PE" <?= $livro->uf == 'PE' ? 'selected' : ''?>>PE - Pernambuco</option>
-                                        <option value="PI" <?= $livro->uf == 'PI' ? 'selected' : ''?>>PI - Piauí</option>
-                                        <option value="RJ" <?= $livro->uf == 'RJ' ? 'selected' : ''?>>RJ - Rio de Janeiro</option>
-                                        <option value="RN" <?= $livro->uf == 'RN' ? 'selected' : ''?>>RN - Rio Grande do Norte</option>
-                                        <option value="RS" <?= $livro->uf == 'RS' ? 'selected' : ''?>>RS - Rio Grande do Sul</option>
-                                        <option value="RO" <?= $livro->uf == 'RO' ? 'selected' : ''?>>RO - Rondônia</option>
-                                        <option value="RR" <?= $livro->uf == 'RR' ? 'selected' : ''?>>RR - Roraima</option>
-                                        <option value="SC" <?= $livro->uf == 'SC' ? 'selected' : ''?>>SC - Santa Catarina</option>
-                                        <option value="SP" <?= $livro->uf == 'SP' ? 'selected' : ''?>>SP - São Paulo</option>
-                                        <option value="SE" <?= $livro->uf == 'SE' ? 'selected' : ''?>>SE - Sergipe</option>
-                                        <option value="TO" <?= $livro->uf == 'TO' ? 'selected' : ''?>>TO - Tocantins</option>
+                                        <option value="AC" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'AC' ? 'selected' : ''?>>AC - Acre</option>
+                                        <option value="AL" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'AL' ? 'selected' : ''?>>AL - Alagoas</option>
+                                        <option value="AP" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'AP' ? 'selected' : ''?>>AP - Amapá</option>
+                                        <option value="AM" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'AM' ? 'selected' : ''?>>AM - Amazonas</option>
+                                        <option value="BA" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'BA' ? 'selected' : ''?>>BA - Bahia</option>
+                                        <option value="CE" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'CE' ? 'selected' : ''?>>CE - Ceará</option>
+                                        <option value="DF" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'DF' ? 'selected' : ''?>>DF - Distrito Federal</option>
+                                        <option value="ES" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'ES' ? 'selected' : ''?>>ES - Espirito Santo</option>
+                                        <option value="GO" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'GO' ? 'selected' : ''?>>GO - Goiás</option>
+                                        <option value="MA" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'MA' ? 'selected' : ''?>>MA - Maranhão</option>
+                                        <option value="MS" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'MS' ? 'selected' : ''?>>MS - Mato Grosso do Sul</option>
+                                        <option value="MT" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'MT' ? 'selected' : ''?>>MT - Mato Grosso</option>
+                                        <option value="MG" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'MG' ? 'selected' : ''?>>MG - Minas Gerais</option>
+                                        <option value="PA" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'PA' ? 'selected' : ''?>>PA - Pará</option>
+                                        <option value="PB" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'PB' ? 'selected' : ''?>>PB - Paraíba</option>
+                                        <option value="PR" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'PR' ? 'selected' : ''?>>PR - Paraná</option>
+                                        <option value="PE" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'PE' ? 'selected' : ''?>>PE - Pernambuco</option>
+                                        <option value="PI" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'PI' ? 'selected' : ''?>>PI - Piauí</option>
+                                        <option value="RJ" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'RJ' ? 'selected' : ''?>>RJ - Rio de Janeiro</option>
+                                        <option value="RN" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'RN' ? 'selected' : ''?>>RN - Rio Grande do Norte</option>
+                                        <option value="RS" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'RS' ? 'selected' : ''?>>RS - Rio Grande do Sul</option>
+                                        <option value="RO" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'RO' ? 'selected' : ''?>>RO - Rondônia</option>
+                                        <option value="RR" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'RR' ? 'selected' : ''?>>RR - Roraima</option>
+                                        <option value="SC" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'SC' ? 'selected' : ''?>>SC - Santa Catarina</option>
+                                        <option value="SP" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'SP' ? 'selected' : ''?>>SP - São Paulo</option>
+                                        <option value="SE" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'SE' ? 'selected' : ''?>>SE - Sergipe</option>
+                                        <option value="TO" <?= @Base::$flashdata['post']['input-uf'] ?? $livro->uf == 'TO' ? 'selected' : ''?>>TO - Tocantins</option>
                                     </select>
                                 </div>
                             </div>
@@ -134,7 +135,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label class="form-control-label" for="textarea-observacao">Observação</label>
-                                    <textarea rows="4" class="form-control form-control-alternative" name="textarea-observacao" id="textarea-observacao"><?= $livro->observacao?></textarea>
+                                    <textarea rows="4" class="form-control form-control-alternative" name="textarea-observacao" id="textarea-observacao"><?= @Base::$flashdata['post']['textarea-observacao'] ?? $livro->observacao?></textarea>
                                 </div>
                             </div>
                         </div>
@@ -150,7 +151,7 @@
 
 <!-- PRATELEIRA -->
 <div class="modal fade" id="modal-prateleira" tabindex="-1" role="dialog" aria-labelledby="modal-prateleira" aria-hidden="true">
-    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -175,7 +176,7 @@
 
 <!-- CATEGORIA -->
 <div class="modal fade" id="modal-categoria" tabindex="-1" role="dialog" aria-labelledby="modal-categoria" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -195,6 +196,7 @@
             </div>
 
             <div class="modal-footer">
+                <a href="" class="btn btn-link limpar-categorias"><i class="fa fa-times" aria-hidden="true"></i> Limpar</a>
                 <button type="button" class="btn btn-link ml-auto" data-toggle="modal" data-target="#modal-adicionar-categoria"><i class="fa fa-plus" aria-hidden="true"></i> Nova categoria</button>
             </div>
 
@@ -203,7 +205,7 @@
 </div>
 
 <div class="modal fade" id="modal-adicionar-categoria" tabindex="-1" role="dialog" aria-labelledby="modal-adicionar-categoria" aria-hidden="true">
-    <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <form id="form-adicionar-categoria" method="POST" action="">
 
@@ -237,7 +239,7 @@
 
 <!-- ESCRITOR -->
 <div class="modal fade" id="modal-escritor" tabindex="-1" role="dialog" aria-labelledby="modal-escritor" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -257,6 +259,7 @@
             </div>
 
             <div class="modal-footer">
+                <a href="" class="btn btn-link limpar-escritores"><i class="fa fa-times" aria-hidden="true"></i> Limpar</a>
                 <button type="button" class="btn btn-link ml-auto" data-toggle="modal" data-target="#modal-adicionar-escritor"><i class="fa fa-plus" aria-hidden="true"></i> Novo escritor</button>
             </div>
 
@@ -347,6 +350,20 @@
 
             modalNovoEscritor.modal('hide')
             modalEscritor.modal('hide')
+        })
+
+        $('.limpar-escritores').click(function(e) {
+            e.preventDefault()
+            
+            $('#input-escritor').val('')
+            $('#modal-escritor').modal('hide')
+        })
+
+        $('.limpar-categorias').click(function(e) {
+            e.preventDefault()
+            
+            $('#input-categoria').val('')
+            $('#modal-categoria').modal('hide')
         })
 
         filtrarPrateleiras(null)

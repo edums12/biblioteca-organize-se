@@ -25,14 +25,14 @@
                             </div>
                             <div class="col-lg-5 col-sm-12 offset-lg-3">
                                 <div class="form-group mb-0">
-                                    <input type="search" name="search" class="form-control form-control-alternative" placeholder="Pesquisar..." value="<?= $this->input->get('search')?>">
+                                    <input type="search" name="search" class="form-control form-control-alternative" placeholder="Pesquisar..." value="<?= $this->input->get('search') ?>">
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="table-responsive">
-                <table class="table align-items-center table-flush">
+                    <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Código</th>
@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($livros as $livro): ?>
+                            <?php foreach ($livros as $livro) : ?>
                             <tr>
                                 <th scope="row">
                                     <?= $livro->codigo ?>
@@ -78,13 +78,13 @@
                                 </td>
                             </tr>
                             <?php endforeach; ?>
-                            <?php if (count($livros) == 0):?>
-                                <tr>
-                                    <td colspan="7">
-                                        Nenhum livro cadastrado.
-                                    </td>
-                                </tr>
-                            <?php endif;?>
+                            <?php if (count($livros) == 0) : ?>
+                            <tr>
+                                <td colspan="7">
+                                    Nenhum livro cadastrado.
+                                </td>
+                            </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

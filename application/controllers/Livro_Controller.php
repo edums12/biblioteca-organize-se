@@ -110,19 +110,23 @@ class Livro_Controller extends CI_Controller
     {
         try
         {
-            $codigo = $this->input->post('input-codigo');
-            $titulo = $this->input->post('input-titulo');
-            $isbn = $this->input->post('input-isbn');
-            $escritor = $this->input->post('input-escritor');
-            $categoria = $this->input->post('input-categoria');
-            $id_prateleira = $this->input->post('input-id-prateleira');
-            $edicao = $this->input->post('input-edicao');
-            $numero_paginas = $this->input->post('input-numero-paginas');
-            $ano = $this->input->post('input-ano');
-            $uf = $this->input->post('input-uf');
-            $observacao = $this->input->post('textarea-observacao');
-    
-            $this->Livro->atualizar($codigo, $titulo, $isbn, $escritor, $categoria, intval($id_prateleira), $edicao, intval($numero_paginas), $ano, $uf, $observacao);
+            list(
+                'input-id' => $id,
+                'input-codigo' => $codigo,
+                'input-titulo' => $titulo,
+                'input-isbn' => $isbn,
+                'input-escritor' => $escritor,
+                'input-categoria' => $categoria,
+                'input-id-prateleira' => $id_prateleira,
+                'input-edicao' => $edicao,
+                'input-numero-paginas' => $numero_paginas,
+                'input-ano' => $ano,
+                'input-uf' => $uf,
+                'input-quantidade-exemplares' => $quantidade_exemplares,
+                'textarea-observacao' => $observacao,
+            ) = $this->input->post();
+
+            $this->Livro->atualizar(intval($id), $codigo, $titulo, $isbn, $escritor, $categoria, intval($id_prateleira), $edicao, intval($numero_paginas), $ano, $uf, $observacao, intval($quantidade_exemplares));
 
             $this->session->set_flashdata('success', 'Livro atualizado com sucesso');
 
@@ -131,7 +135,9 @@ class Livro_Controller extends CI_Controller
         catch (Exception $e)
         {
             $this->session->set_flashdata('error', $e->getMessage());
-            redirect(base_url('livros/novo'));
+            $this->session->set_flashdata('post', $this->input->post());
+
+            redirect(base_url("livros/editar/{$id}"));
         }
     }
 
